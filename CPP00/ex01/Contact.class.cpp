@@ -6,7 +6,7 @@
 /*   By: everonel <everonel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/16 19:19:56 by everonel          #+#    #+#             */
-/*   Updated: 2023/09/18 23:24:53 by everonel         ###   ########.fr       */
+/*   Updated: 2023/10/24 18:47:50 by everonel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,8 @@ std::string Contact::setInfo(std::string request, int type){
     std::string input;
     std::cout << request;
     std::getline(std::cin, input);
+    if(std::cin.eof())
+            exit(1);
     if (_controlInfo(input, type) == 0)
         return (std::cout << ITALIC_RED << ERR_NON_VALID << RESET, setInfo(request, type));
     return input;

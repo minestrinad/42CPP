@@ -1,8 +1,14 @@
-//From Module 02 to Module 09, your classes must be designed in the Orthodox
-//Canonical Form, except when explicitely stated otherwise.
-//Canonical Form: https://web.archive.org/web/20150906155800/http://www.cplusplus.com/forum/articles/10627/
-//Orthodox Canonical Form: https://web.archive.org/web/20150906155800/http://www.cplusplus.com/forum/articles/10627
-// program has to compile with -std=c++98 -Wall -Wextra -Werror
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   megaphone.cpp                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: everonel <everonel@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/10/20 13:24:19 by everonel          #+#    #+#             */
+/*   Updated: 2023/10/21 19:29:38 by everonel         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include <iostream>
 #include <string>
@@ -16,7 +22,6 @@ int main(int ac, char **av)
             std::string str = av[i];
             for (size_t j = 0; j < str.length(); j++)
                 std::cout << (char)std::toupper(str[j]);
-            std::cout << " ";
         }
     }
     std::cout << std::endl;

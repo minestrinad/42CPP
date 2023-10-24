@@ -1,33 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   PhoneBook.class.hpp                                :+:      :+:    :+:   */
+/*   main.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: everonel <everonel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/09/16 15:19:06 by everonel          #+#    #+#             */
-/*   Updated: 2023/10/20 13:31:58 by everonel         ###   ########.fr       */
+/*   Created: 2023/09/19 13:31:38 by everonel          #+#    #+#             */
+/*   Updated: 2023/09/21 17:01:07 by everonel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PHONEBOOK_CLASS_HPP
-# define PHONEBOOK_CLASS_HPP
+#include "Zombie.hpp"
 
-# include "Contact.class.hpp"
-# include "includes.h"
-# include "colors.h"
-
-class PhoneBook
-{
-    private:
-        Contact _contacts[MAX_CONTACTS];
-        int     _nbContacts;
-        int     _maxContacts;
-    public:
-        PhoneBook();
-        ~PhoneBook();
-        void    addContact();
-        void    searchContact();
-};
-
-#endif
+int main(){
+    Zombie *zombie = zombieHorde(5, "Zom_bye");
+    for (int i = 0; i < 5; i++)
+    {
+        zombie[i].announce();
+    }
+    delete[] zombie;
+    return 0;
+}

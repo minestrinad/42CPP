@@ -1,33 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   PhoneBook.class.hpp                                :+:      :+:    :+:   */
+/*   HumanA.hpp                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: everonel <everonel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/09/16 15:19:06 by everonel          #+#    #+#             */
-/*   Updated: 2023/10/20 13:31:58 by everonel         ###   ########.fr       */
+/*   Created: 2023/09/21 17:39:26 by everonel          #+#    #+#             */
+/*   Updated: 2023/09/22 02:55:45 by everonel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PHONEBOOK_CLASS_HPP
-# define PHONEBOOK_CLASS_HPP
+#ifndef HUMANA_HPP
+# define HUMANA_HPP
 
-# include "Contact.class.hpp"
-# include "includes.h"
-# include "colors.h"
+#include "Weapon.hpp"
 
-class PhoneBook
-{
-    private:
-        Contact _contacts[MAX_CONTACTS];
-        int     _nbContacts;
-        int     _maxContacts;
+class HumanA{
     public:
-        PhoneBook();
-        ~PhoneBook();
-        void    addContact();
-        void    searchContact();
+        HumanA(std::string name, Weapon& weapon);
+        ~HumanA();
+        void    attack();
+    private:
+        std::string _name;
+        Weapon&     _weapon;
 };
 
 #endif

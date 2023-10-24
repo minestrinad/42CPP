@@ -1,33 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   PhoneBook.class.hpp                                :+:      :+:    :+:   */
+/*   Weapon.hpp                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: everonel <everonel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/09/16 15:19:06 by everonel          #+#    #+#             */
-/*   Updated: 2023/10/20 13:31:58 by everonel         ###   ########.fr       */
+/*   Created: 2023/09/21 17:12:05 by everonel          #+#    #+#             */
+/*   Updated: 2023/09/22 02:18:16 by everonel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PHONEBOOK_CLASS_HPP
-# define PHONEBOOK_CLASS_HPP
+#ifndef WEAPON_H
+# define WEAPON_H
 
-# include "Contact.class.hpp"
-# include "includes.h"
-# include "colors.h"
+# include <iostream>
 
-class PhoneBook
-{
-    private:
-        Contact _contacts[MAX_CONTACTS];
-        int     _nbContacts;
-        int     _maxContacts;
+class Weapon{
     public:
-        PhoneBook();
-        ~PhoneBook();
-        void    addContact();
-        void    searchContact();
+        Weapon();
+        ~Weapon();
+        Weapon(std::string type);
+        void    setType(std::string type);
+        const   std::string &getType();
+        Weapon& operator=(const Weapon& weapon);
+    private:
+        std::string _type;
 };
 
 #endif

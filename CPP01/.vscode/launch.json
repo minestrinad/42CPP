@@ -6,8 +6,8 @@
       "type": "lldb",
       "request": "launch",
       "args": [],
-      "cwd": "/Users/minestrinaD/Desktop/CPP/CPP01",
-      "program": "/Users/minestrinaD/Desktop/CPP/CPP01/build/Debug/outDebug"
+      "cwd": "/Users/minestrinaD/Desktop/CPP/CPP01/ex05",
+      "program": "/Users/minestrinaD/Desktop/CPP/CPP01/ex05/build/Debug/outDebug"
     }
   ]
 }
