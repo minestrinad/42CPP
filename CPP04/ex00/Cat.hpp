@@ -9,5 +9,5 @@ class Cat : public Animal
         Cat(std::string type);
         Cat(Cat &src);
         ~Cat();
-        void makeSound();
+        void virtual makeSound();
 };

@@ -13,18 +13,18 @@
 #include "Zombie.hpp"
 
 int main(){
-    std::cout << "        Zombie Constructor" << std::endl;
+    std::cout << "Zombie Constructor" << std::endl;
     Zombie zombie1("Zombert");
     zombie1.announce();
-    std::cout << "    --------------------------" << std::endl;
-    std::cout << "        newZombie('Zoomby')" << std::endl;
-    Zombie *zombie = newZombie("Zoomby");
-    zombie->announce();
-    std::cout << "   ----------------------------" << std::endl;
-    std::cout << "randomChump()" << std::endl;
-    randomChump("Zombom");
-    std::cout << "   ----------------------------" << std::endl;
-    std::cout << "delete zombie" << std::endl;
-    delete zombie;
+
+    // std::cout << "        newZombie('Zoomby')" << std::endl;
+    // Zombie *zombie = newZombie("Zoomby");
+    // zombie->announce();
+
+    // std::cout << "randomChump()" << std::endl;
+    // randomChump("Zombom");
+
+    // std::cout << "delete zombie" << std::endl;
+    // delete zombie;
     return 0;
 }
