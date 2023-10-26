@@ -3,9 +3,9 @@ NAME = ex00
 SRCS = main.cpp \
       Animal.cpp \
       Cat.cpp \
-      Dog.cpp \
-      WrongCat.cpp \
-      WrongDog.cpp \
+    #   Dog.cpp \
+    #   WrongCat.cpp \
+    #   WrongDog.cpp \
 
 OBJS = $(SRCS:.cpp=.o)
 

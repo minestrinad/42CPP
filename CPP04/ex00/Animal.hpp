@@ -9,8 +9,8 @@ class Animal
     public:
         Animal();
         Animal(std::string type);
-        Animal(const Animal &copy);
+        Animal(Animal &copy);
         virtual ~Animal();
-        Animal &operator=(const Animal &copy);
-        void virtual makeSound() const;
+        Animal &operator=(Animal &copy);
+        void virtual makeSound();
 };
