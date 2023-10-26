@@ -6,7 +6,7 @@
 /*   By: everonel <everonel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/21 17:39:26 by everonel          #+#    #+#             */
-/*   Updated: 2023/09/23 11:36:37 by everonel         ###   ########.fr       */
+/*   Updated: 2023/10/27 00:47:28 by everonel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,10 @@
 
 class HumanB{
     public:
+        HumanB();
         HumanB(std::string name);
         ~HumanB();
+        
         void    setWeapon(Weapon& weapon);
         void    attack();
     private:

@@ -6,7 +6,7 @@
 /*   By: everonel <everonel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/19 13:30:24 by everonel          #+#    #+#             */
-/*   Updated: 2023/09/21 16:29:00 by everonel         ###   ########.fr       */
+/*   Updated: 2023/10/27 00:33:47 by everonel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ class Zombie
         Zombie(void);
         Zombie(std::string name);
         ~Zombie(void);
+        void    setName(std::string name);
         void    announce(void);
     private:
         std::string _name;

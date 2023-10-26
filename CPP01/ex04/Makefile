@@ -1,4 +1,4 @@
-NAME = file
+NAME = ex04
 
 SRCS = main.cpp
 

@@ -6,25 +6,25 @@
 /*   By: everonel <everonel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/19 13:31:38 by everonel          #+#    #+#             */
-/*   Updated: 2023/09/21 02:44:55 by everonel         ###   ########.fr       */
+/*   Updated: 2023/10/27 00:20:38 by everonel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Zombie.hpp"
 
 int main(){
-    std::cout << "Zombie Constructor" << std::endl;
-    Zombie zombie1("Zombert");
-    zombie1.announce();
+    std::cout << "\33[0;32m";
+    std::cout << "      ** STATIC ALLOCATION & DEALLOCATION **" << std::endl;
+    randomChump("zombom");
+    std::cout << "\33[0m";
 
-    // std::cout << "        newZombie('Zoomby')" << std::endl;
-    // Zombie *zombie = newZombie("Zoomby");
-    // zombie->announce();
-
-    // std::cout << "randomChump()" << std::endl;
-    // randomChump("Zombom");
-
-    // std::cout << "delete zombie" << std::endl;
-    // delete zombie;
+    std::cout << "\33[0;33m";
+    std::cout << std::endl << "     ** DYNAMIC ALLOCATION **" << std::endl;
+    Zombie *zombie = newZombie("zoomby");
+    zombie->announce();
+    
+    std::cout << "      ** DYNAMIC DEALLOCATION **" << std::endl;
+    delete zombie;
+    std::cout << "\33[0m";
     return 0;
 }

@@ -6,7 +6,7 @@
 /*   By: everonel <everonel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/21 17:12:05 by everonel          #+#    #+#             */
-/*   Updated: 2023/09/22 02:18:16 by everonel         ###   ########.fr       */
+/*   Updated: 2023/10/27 00:48:58 by everonel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,9 @@
 class Weapon{
     public:
         Weapon();
-        ~Weapon();
         Weapon(std::string type);
+        ~Weapon();
+        
         void    setType(std::string type);
         const   std::string &getType();
         Weapon& operator=(const Weapon& weapon);

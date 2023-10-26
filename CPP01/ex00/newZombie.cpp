@@ -6,7 +6,7 @@
 /*   By: everonel <everonel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/21 02:03:16 by everonel          #+#    #+#             */
-/*   Updated: 2023/09/21 02:35:54 by everonel         ###   ########.fr       */
+/*   Updated: 2023/10/27 00:08:31 by everonel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,6 @@
 
 Zombie  *newZombie(std::string name)
 {
-    Zombie *newZombie = new Zombie(name);
-    return (newZombie);
+    Zombie *zombie = new Zombie(name);
+    return (zombie);
 }

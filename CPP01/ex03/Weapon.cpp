@@ -6,30 +6,29 @@
 /*   By: everonel <everonel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/21 17:18:52 by everonel          #+#    #+#             */
-/*   Updated: 2023/09/22 02:55:14 by everonel         ###   ########.fr       */
+/*   Updated: 2023/10/27 00:47:14 by everonel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Weapon.hpp"
 
-Weapon::Weapon() {}
-Weapon::~Weapon() {}
+Weapon::Weapon() { }
 
-Weapon::Weapon(std::string type) {
-    this->_type = type;
-}
+Weapon::Weapon(std::string type) : _type(type) { }
+
+Weapon::~Weapon() { }
 
 void    Weapon::setType(std::string type) {
-    this->_type = type;
+    _type = type;
 }
 
 const std::string &Weapon::getType() {
-    return (this->_type);
+    return (_type);
 }
 
-Weapon& Weapon::operator=(const Weapon& weapon) {
-    if (this != &weapon)
-        this->_type = weapon._type;
+Weapon& Weapon::operator=(const Weapon& copy) {
+    if (this != &copy)
+        _type = copy._type;
     return *this;
 }
 

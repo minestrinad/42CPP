@@ -6,25 +6,24 @@
 /*   By: everonel <everonel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/01 00:53:27 by everonel          #+#    #+#             */
-/*   Updated: 2023/10/13 02:18:26 by everonel         ###   ########.fr       */
+/*   Updated: 2023/10/27 00:59:39 by everonel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Harl.hpp"
 
-
 Harl::Harl() { }
 
 Harl::~Harl() { }
 
-void    Harl::complain( std::string level ){
-void        (Harl::*fArray[])() = {&Harl::debug, &Harl::info, &Harl::warning, &Harl::error};
-std::string sArray[] = {"DEBUG", "INFO", "WARNING", "ERROR"};
+void    Harl::complain( std::string level ) {
+    void    (Harl::*fArray[])() = {&Harl::debug, &Harl::info, &Harl::warning, &Harl::error};
+    std::string sArray[] = {"DEBUG", "INFO", "WARNING", "ERROR"};
     int i = 0;
     while (sArray[i] != level)
         i++;
     if (i < 4)
-        (this->*fArray[i])();      // perchè DHN??
+        (this->*fArray[i])();      // perchè ??
 }
 
 void    Harl::debug(void) {

@@ -1,4 +1,4 @@
-NAME = hi_this_is_brain
+NAME = ex02
 
 SRCS = main.cpp
 

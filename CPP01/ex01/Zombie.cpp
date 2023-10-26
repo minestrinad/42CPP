@@ -6,7 +6,7 @@
 /*   By: everonel <everonel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/19 13:30:17 by everonel          #+#    #+#             */
-/*   Updated: 2023/09/21 16:28:43 by everonel         ###   ########.fr       */
+/*   Updated: 2023/10/27 00:33:28 by everonel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,5 +29,11 @@ Zombie::~Zombie(void)
 void    Zombie::announce(void)
 {
     std::cout << this->_name << " BraiiiiiiinnnzzzZ..." << std::endl;
+    return ;
+}
+
+void    Zombie::setName(std::string name)
+{
+    this->_name = name;
     return ;
 }
