@@ -19,10 +19,6 @@
 #define INPUT_ERROR     "Usage: <file_name> <s1> <s2>"
 #define FILE_ERROR      "Something went wrong in file manipulation............."
 
-std::string     file_name;
-std::string     s1;
-std::string     s2;
-
 int main (int ac, char **av){
     // check for correct input
     if (ac != 4){
@@ -31,16 +27,22 @@ int main (int ac, char **av){
     }
 
     // set variables
-    file_name = av[1];
-    s1 = av[2];
-    s2 = av[3];
+    std::string fileName = av[1];
+    std::string s1 = av[2];
+    std::string s2 = av[3];
     std::string     line;
     size_t          pos; 
-    std::ifstream   file(file_name);
-    std::ofstream   tmpFile(".replace_" + file_name);
-    if (!file.is_open() || !tmpFile.is_open())
+    std::ifstream   file(fileName.c_str());
+    if (!file.is_open()){
         std::cout << ITALIC_RED << FILE_ERROR << RESET << std::endl;
-
+        return (1) ;
+    }
+    std::string     repl = fileName + ".replace";
+    std::ofstream   tmpFile(repl.c_str());
+    if (!tmpFile.is_open()){
+        std::cout << ITALIC_RED << FILE_ERROR << RESET << std::endl;
+        return (1) ;
+    }
     // change s1 to s2
     while (std::getline(file, line)){
         pos = 0;
@@ -52,14 +54,6 @@ int main (int ac, char **av){
     }
     file.close();
     tmpFile.close();
-    
-    // delete old file and rename new file
-    if (remove(file_name.c_str()) != 0)
-        std::cout << ITALIC_RED << "Error: File not deleted"<< RESET << std::endl;
-    else if (rename((".replace_" + file_name).c_str(), file_name.c_str()) != 0)
-        std::cout << ITALIC_RED << FILE_ERROR << RESET << "Error: File not renamed" << RESET << std::endl;
-    else
-    // print success
-    std::cout << ITALIC_BLUE << "File updated" << RESET << std::endl;
+    std::cout << ITALIC_BLUE << "File " << fileName << ".replace generated" << RESET << std::endl;
     return 0;
 }

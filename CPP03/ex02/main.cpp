@@ -1,17 +1,21 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   main.cpp                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: everonel <everonel@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/11/07 19:22:30 by everonel          #+#    #+#             */
+/*   Updated: 2023/11/07 19:22:33 by everonel         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "FragTrap.hpp"
 
 int main()
 {
-    // ScavTrap scav("Elio");
-    // scav.attack("Pippo");
-    // scav.takeDamage(10);
-    // scav.beRepaired(10);
-    // scav.guardGate();
-
     FragTrap frag("Enzo");
     frag.attack("Pippo");
-    frag.takeDamage(10);
-    frag.beRepaired(10);
     frag.highFivesGuys();
     return 0;
 }

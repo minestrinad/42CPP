@@ -10,40 +10,27 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <iostream>
 #include "Fixed.hpp"
 
 int main( void ) {
     Fixed a;
     Fixed b( a );
+    
+    std::cout << "Fixed a fixed_value = " << a.getRawBits() << std::endl;
+    std::cout << "Fixed b fixed_value = " << b.getRawBits() << std::endl;
+    a.setRawBits(42);
     Fixed c;
-
-    a.setRawBits( 10 );
-    b.setRawBits( 20 );
-    std::cout << "Fixed a = "<< a.getRawBits() << std::endl;
-    std::cout << "c = a ";
     c = a;
-    std::cout << "Fixed c = "<< c.getRawBits() << std::endl;
-    std::cout << "Fixed b = "<< b.getRawBits() << std::endl;
-    std::cout << "c = b ";
-    c = b;
-    std::cout << "Fixed c = "<< c.getRawBits() << std::endl;
+    std::cout << "Fixed a fixed_value = " << a.getRawBits() << std::endl;
+    std::cout << "Fixed c fixed_value = " << c.getRawBits() << std::endl;
+
+    //          subject test
+    // Fixed a;
+    // Fixed b( a );
+    // Fixed c;
+    // c = b;
+    // std::cout << a.getRawBits() << std::endl;
+    // std::cout << b.getRawBits() << std::endl;
+    // std::cout << c.getRawBits() << std::endl;
     return 0;
 }
-
-// int main( ) {
-//     Fixed a;
-//     Fixed b( a );
-//     Fixed c;
-//     c = b;
-
-//     std::cout << a.getRawBits() << std::endl;
-//     std::cout << b.getRawBits() << std::endl;
-//     std::cout << c.getRawBits() << std::endl;
-    
-//     a.setRawBits( 10 );
-//     std::cout << a.getRawBits() << std::endl;
-//     b = a;
-//     std::cout << b.getRawBits() << std::endl;
-//     return 0;
-// }

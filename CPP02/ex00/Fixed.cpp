@@ -13,15 +13,15 @@
 #include "Fixed.hpp"
 
 Fixed::Fixed( ) : _fixed_value(0) {
-    std::cout << "Default constructor called" << std::endl;
+    std::cout << DEBUG << "Default constructor called" << RESET << std::endl;
 }
 
 Fixed::Fixed( Fixed const &src ) : _fixed_value(src._fixed_value) {
-    std::cout << "Copy constructor called" << std::endl;
+    std::cout << DEBUG << "Copy constructor called" << RESET << std::endl;
 }
 
 Fixed::~Fixed() {
-    std::cout << "Destructor called" << std::endl;
+    std::cout << DEBUG << "Destructor called" << RESET << std::endl;
 }
 
 
@@ -34,7 +34,7 @@ int Fixed::getRawBits( ) const {
 }
 
 Fixed &Fixed::operator=( Fixed const &src ) {
-    std::cout << "Assignation operator called" << std::endl;
+    std::cout << DEBUG << "Assignment operator called" << RESET << std::endl;
     if (this != &src)
         _fixed_value = src.getRawBits();
     return (*this);

@@ -15,15 +15,18 @@
 
 # include <iostream>
 
+# define RESET		"\033[0m"
+# define DEBUG		"\033[33m"
+
 class Fixed
 {
     public:
         Fixed( );
         Fixed( Fixed const &src );
         ~Fixed( );
-        Fixed &operator=( Fixed const &right_value );
         int     getRawBits( ) const;
         void    setRawBits(int const raw);
+        Fixed &operator=( Fixed const &right_value );
     
     private:
         int					_fixed_value;
