@@ -6,7 +6,7 @@
 /*   By: everonel <everonel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/08 18:24:13 by everonel          #+#    #+#             */
-/*   Updated: 2023/11/08 19:35:39 by everonel         ###   ########.fr       */
+/*   Updated: 2023/11/08 22:35:32 by everonel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,8 @@
 class Cat : public Animal
 {
     private:
-        Brain brain;
+        Brain *_brain;
+
     public:
         Cat( );
         Cat( std::string );

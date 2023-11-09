@@ -1,33 +1,39 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   Brain.hpp                                          :+:      :+:    :+:   */
+/*   WrongAnimal.hpp                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: everonel <everonel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/08 19:24:52 by everonel          #+#    #+#             */
-/*   Updated: 2023/11/08 22:53:13 by everonel         ###   ########.fr       */
+/*   Created: 2023/11/08 18:22:55 by everonel          #+#    #+#             */
+/*   Updated: 2023/11/08 19:16:40 by everonel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef BRAIN_HPP
-# define BRAIN_HPP
+#ifndef WRONGANIMAL_HPP
+# define WRONGANIMAL_HPP
 
-#include <iostream>
+# include <iostream>
 
 # define RESET      "\033[0m"
 # define DEBUG		"\033[33m"
+// # define DAMAGE		"\033[31m"
+// # define CURE       "\033[32m"
 
-class Brain 
+class WrongAnimal
 {
     public:
-        Brain( );
-        Brain( Brain &);
-        ~Brain( );
+        WrongAnimal( );
+        WrongAnimal(std::string type);
+        WrongAnimal(WrongAnimal &copy);
+        virtual ~WrongAnimal( );
 
-        Brain &operator=( Brain & );
-    private:
-        std::string _ideas[100];
+        void        makeSound( ) const;
+        std::string getType( ) const;
+        
+        WrongAnimal &operator=(WrongAnimal &copy);
+    protected:
+        std::string _type;
 };
 
 #endif

@@ -1,37 +1,42 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   WrongCat.cpp                                       :+:      :+:    :+:   */
+/*   Cat.cpp                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: everonel <everonel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/08 18:24:55 by everonel          #+#    #+#             */
-/*   Updated: 2023/11/08 22:45:37 by everonel         ###   ########.fr       */
+/*   Updated: 2023/11/08 23:06:05 by everonel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "WrongCat.hpp"
+#include "Cat.hpp"
 
-WrongCat::WrongCat(): WrongAnimal() { 
-    std::cout << DEBUG << "A new wrong cat has been allocated" << RESET << std::endl;
+Cat::Cat(): AAnimal() { 
+    _type = "cat";
+    _brain = new Brain( );
+    std::cout << DEBUG << "A new cat has been allocated" << RESET << std::endl;
 }
 
-WrongCat::WrongCat(std::string type): WrongAnimal(type) {
-    std::cout << DEBUG << "A new wrong cat has been allocated" << RESET << std::endl;
+Cat::Cat(std::string type): AAnimal(type) {
+    _brain = new Brain( );
+    std::cout << DEBUG << "A new cat has been allocated" << RESET << std::endl;
 }
 
-WrongCat::WrongCat(WrongCat &src): WrongAnimal(src) { 
-    std::cout << DEBUG << "A Wrong cat has been copied" << RESET << std::endl;
+Cat::Cat(Cat &src): AAnimal(src) { 
+    _brain = src._brain;
+    std::cout << DEBUG << "A cat has been copied" << RESET << std::endl;
 }
 
-WrongCat::~WrongCat() { 
-    std::cout << DEBUG << "A Wrong cat has been deallocated" << RESET << std::endl;
+Cat::~Cat() { 
+    delete _brain;
+    std::cout << DEBUG << "A cat has been deallocated" << RESET << std::endl;
 }
 
-void WrongCat::makeSound() const {
+void Cat::makeSound() const {
     std::cout << "is meowing" << std::endl;
 }
 
-std::string WrongCat::getType( ) const {
+std::string Cat::getType( ) const {
     return _type;
 }

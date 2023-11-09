@@ -1,33 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   Brain.hpp                                          :+:      :+:    :+:   */
+/*   WrongDog.hpp                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: everonel <everonel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/08 19:24:52 by everonel          #+#    #+#             */
-/*   Updated: 2023/11/08 22:53:13 by everonel         ###   ########.fr       */
+/*   Created: 2023/11/08 18:46:35 by everonel          #+#    #+#             */
+/*   Updated: 2023/11/08 19:11:44 by everonel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef BRAIN_HPP
-# define BRAIN_HPP
+#ifndef WRONGDOG_HPP
+# define WRONGDOG_HPP
 
-#include <iostream>
+# include <iostream>
+# include "WrongAnimal.hpp"
 
-# define RESET      "\033[0m"
-# define DEBUG		"\033[33m"
-
-class Brain 
+class WrongDog : public WrongAnimal
 {
-    public:
-        Brain( );
-        Brain( Brain &);
-        ~Brain( );
-
-        Brain &operator=( Brain & );
     private:
-        std::string _ideas[100];
+
+    public:
+        WrongDog( );
+        WrongDog( std::string );
+        WrongDog( WrongDog & );
+        ~WrongDog( );
+
+        void        makeSound( ) const;
+        std::string getType( ) const;
 };
 
 #endif

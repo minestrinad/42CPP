@@ -1,35 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   Dog.hpp                                            :+:      :+:    :+:   */
+/*   AMateria.hpp                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: everonel <everonel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/08 18:46:35 by everonel          #+#    #+#             */
-/*   Updated: 2023/11/08 22:54:06 by everonel         ###   ########.fr       */
+/*   Created: 2023/11/08 23:11:14 by everonel          #+#    #+#             */
+/*   Updated: 2023/11/08 23:40:28 by everonel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef DOG_HPP
-# define DOG_HPP
+#ifndef AMATERIA_HPP
+# define AMATERIA_HPP
 
 # include <iostream>
-# include "Animal.hpp"
-# include "Brain.hpp"
+# include "ICharacter.hpp"
 
-class Dog : public Animal
+class AMateria
 {
-    private:
-        Brain *_brain;
-
+    protected:
+        std::string _type;
     public:
-        Dog( );
-        Dog( std::string );
-        Dog( Dog & );
-        ~Dog( );
+        AMateria(std::string const & type);
+        AMateria(AMateria &);
+        ~AMateria();
 
-        void        makeSound( ) const;
-        std::string getType( ) const;
+        std::string const & getType() const; //Returns the materia type
+        virtual AMateria*   clone() const = 0;
+        virtual void        use(ICharacter& target);
+
+        AMateria &operator=(AMateria &);
 };
 
 #endif

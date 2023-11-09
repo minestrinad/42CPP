@@ -1,33 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   Brain.hpp                                          :+:      :+:    :+:   */
+/*   Cat.hpp                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: everonel <everonel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/08 19:24:52 by everonel          #+#    #+#             */
-/*   Updated: 2023/11/08 22:53:13 by everonel         ###   ########.fr       */
+/*   Created: 2023/11/08 18:24:13 by everonel          #+#    #+#             */
+/*   Updated: 2023/11/08 23:06:27 by everonel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef BRAIN_HPP
-# define BRAIN_HPP
+#ifndef CAT_HPP
+# define CAT_HPP
 
-#include <iostream>
+# include "Animal.hpp"
+# include "Brain.hpp"
 
-# define RESET      "\033[0m"
-# define DEBUG		"\033[33m"
-
-class Brain 
+class Cat : public AAnimal
 {
-    public:
-        Brain( );
-        Brain( Brain &);
-        ~Brain( );
-
-        Brain &operator=( Brain & );
     private:
-        std::string _ideas[100];
+        Brain *_brain;
+
+    public:
+        Cat( );
+        Cat( std::string );
+        Cat( Cat & );
+        ~Cat( );
+
+        void        makeSound() const;
+        std::string getType() const;
 };
+
 
 #endif

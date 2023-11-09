@@ -1,37 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   Dog.cpp                                            :+:      :+:    :+:   */
+/*   WrongDog.cpp                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: everonel <everonel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/08 18:54:40 by everonel          #+#    #+#             */
-/*   Updated: 2023/11/08 22:42:01 by everonel         ###   ########.fr       */
+/*   Updated: 2023/11/08 19:10:58 by everonel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "Dog.hpp"
+#include "WrongDog.hpp"
 
-Dog::Dog( ) : Animal( ) { 
-    _type = "dog";
+WrongDog::WrongDog( ) : WrongAnimal( ) { }
+
+WrongDog::WrongDog( std::string type ) : WrongAnimal(type) {
+    std::cout << DEBUG << "A new Wrong dog is born!" << RESET << std::endl;
 }
 
-Dog::Dog( std::string type ) : Animal(type) {
-    std::cout << DEBUG << "A new dog has been allocated" << RESET << std::endl;
+WrongDog::WrongDog( WrongDog &src ) : WrongAnimal (src) {
+    std::cout << DEBUG << "A Wrong dog has been cloned :O" << RESET << std::endl;
 }
 
-Dog::Dog( Dog &src ) : Animal (src) {
-    std::cout << DEBUG << "A dog has been copied" << RESET << std::endl;
+WrongDog::~WrongDog( ) { 
+    std::cout << DEBUG << "A Wrong dog is dead! :(" << RESET << std::endl;
 }
 
-Dog::~Dog( ) { 
-    std::cout << DEBUG << "A dog has been allocated" << RESET << std::endl;
+void WrongDog::makeSound( ) const {
+    std::cout << "wof wof!" << std::endl;
 }
 
-void Dog::makeSound( ) const {
-    std::cout << "is barking" << std::endl;
-}
-
-std::string Dog::getType() const {
+std::string WrongDog::getType() const {
     return _type;
 }

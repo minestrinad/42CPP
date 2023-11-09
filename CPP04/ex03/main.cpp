@@ -1,33 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   Brain.hpp                                          :+:      :+:    :+:   */
+/*   main.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: everonel <everonel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/08 19:24:52 by everonel          #+#    #+#             */
-/*   Updated: 2023/11/08 22:53:13 by everonel         ###   ########.fr       */
+/*   Created: 2023/11/08 23:46:32 by everonel          #+#    #+#             */
+/*   Updated: 2023/11/08 23:48:02 by everonel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef BRAIN_HPP
-# define BRAIN_HPP
+#include "AMateria.hpp"
 
-#include <iostream>
-
-# define RESET      "\033[0m"
-# define DEBUG		"\033[33m"
-
-class Brain 
+int main()
 {
-    public:
-        Brain( );
-        Brain( Brain &);
-        ~Brain( );
-
-        Brain &operator=( Brain & );
-    private:
-        std::string _ideas[100];
-};
-
-#endif
+    std::cout << "nothing to test because I can't use Abstract classes and Interfaces directly" << std::endl;
+    return 0;
+}

@@ -1,33 +1,38 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   Brain.hpp                                          :+:      :+:    :+:   */
+/*   Animal.hpp                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: everonel <everonel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/08 19:24:52 by everonel          #+#    #+#             */
-/*   Updated: 2023/11/08 22:53:13 by everonel         ###   ########.fr       */
+/*   Created: 2023/11/08 18:22:55 by everonel          #+#    #+#             */
+/*   Updated: 2023/11/08 23:05:14 by everonel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef BRAIN_HPP
-# define BRAIN_HPP
+#ifndef ANIMAL_HPP
+# define ANIMAL_HPP
 
-#include <iostream>
+# include <iostream>
 
 # define RESET      "\033[0m"
 # define DEBUG		"\033[33m"
+// # define DAMAGE		"\033[31m"
+// # define CURE       "\033[32m"
 
-class Brain 
+class AAnimal
 {
     public:
-        Brain( );
-        Brain( Brain &);
-        ~Brain( );
+        AAnimal( );
+        AAnimal(std::string type);
+        AAnimal(AAnimal &copy);
+        virtual ~AAnimal( );
 
-        Brain &operator=( Brain & );
-    private:
-        std::string _ideas[100];
+        void virtual    makeSound( ) const = 0;
+        std::string     getType( ) const;
+        AAnimal &operator=(AAnimal &copy);
+    protected:
+        std::string _type;
 };
 
 #endif
