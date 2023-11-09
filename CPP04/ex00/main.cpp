@@ -7,18 +7,18 @@
 
 int main()
 {
-    // const Animal* zoo = new Animal("cow");
-    // const Animal* mew = new Cat("cat");
-    // const Animal* dog = new Dog("dog");
+    const Animal* zoo = new Animal("cow");
+    const Animal* mew = new Cat("cat");
+    const Animal* dog = new Dog("dog");
     
-    // std::cout << mew->getType() << " " << std::endl;
-    // std::cout << dog->getType() << std::endl;
-    // mew->makeSound();
-    // zoo->makeSound();
-    // dog->makeSound();
-    // delete zoo;
-    // delete mew;
-    // delete dog;
+    std::cout << mew->getType() << " " << std::endl;
+    std::cout << dog->getType() << std::endl;
+    mew->makeSound();
+    zoo->makeSound();
+    dog->makeSound();
+    delete zoo;
+    delete mew;
+    delete dog;
 
     // std::cout << "-------------WRONG!-------------" << std::endl;
 
@@ -36,14 +36,14 @@ int main()
     // delete Wrongdog;
 
     //              Subject tests
-    const Animal* meta = new Animal();
-    const Animal* j = new Dog();
-    const Animal* i = new Cat();
-    std::cout << j->getType() << " " << std::endl;
-    std::cout << i->getType() << " " << std::endl;
-    i->makeSound(); //will output the cat sound!
-    j->makeSound();
-    meta->makeSound();
+    // const Animal* meta = new Animal();
+    // const Animal* j = new Dog();
+    // const Animal* i = new Cat();
+    // std::cout << j->getType() << " " << std::endl;
+    // std::cout << i->getType() << " " << std::endl;
+    // i->makeSound(); //will output the cat sound!
+    // j->makeSound();
+    // meta->makeSound();
 
     return 0;
 }

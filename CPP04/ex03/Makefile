@@ -2,6 +2,8 @@ NAME = ex03
 
 SRCS = main.cpp \
       AMateria.cpp \
+	  Fire.cpp \
+	  Fighter.cpp \
 
 OBJS = $(SRCS:.cpp=.o)
 
