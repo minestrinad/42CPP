@@ -6,17 +6,17 @@
 /*   By: everonel <everonel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/09 11:06:58 by everonel          #+#    #+#             */
-/*   Updated: 2023/11/09 13:41:53 by everonel         ###   ########.fr       */
+/*   Updated: 2023/11/09 21:48:47 by everonel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef CHARACTER_HPP
 # define CHARACTER_HPP
 
-#include <iostream>
 #include "ICharacter.hpp"
-#include "AMateria.hpp"
-#include "Void.hpp"
+
+# define DIM_FLOOR      2000
+# define DIM_INVENTORY  4
 
 /*virtual ~ICharacter() {}
 virtual std::string const & getName() const = 0;
@@ -26,8 +26,9 @@ virtual void use(int idx, ICharacter& target) = 0;*/
 class Character : public ICharacter {
     private:
         std::string _name;
-        AMateria   *_inventory;
-        int         _inventory_index;
+        AMateria    *_inventory[DIM_INVENTORY];
+        AMateria    *_floor[DIM_FLOOR];
+
     public:
         Character(std::string);
         Character(Character &);

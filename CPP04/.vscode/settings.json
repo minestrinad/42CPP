@@ -1,0 +1,6 @@
+{
+    "files.associations": {
+        "materiasource.hpp": "c",
+        "iostream": "cpp"
+    }
+}

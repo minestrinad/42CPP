@@ -6,7 +6,7 @@
 /*   By: everonel <everonel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/09 11:18:49 by everonel          #+#    #+#             */
-/*   Updated: 2023/11/09 12:59:06 by everonel         ###   ########.fr       */
+/*   Updated: 2023/11/09 18:57:56 by everonel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,12 +20,11 @@ class Cure : public AMateria {
 
     public:
         Cure( );
-        Cure(Cure &);
-        ~Cure();
+        ~Cure( );
 
-        std::string const & getType() const;
-        AMateria*           clone() const;
+        AMateria*           clone( ) const;
         void                use(ICharacter &);
+        Cure &operator=( const Cure & );
 };
 
 #endif
