@@ -6,7 +6,7 @@
 /*   By: everonel <everonel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/09 12:46:46 by everonel          #+#    #+#             */
-/*   Updated: 2023/11/09 21:33:43 by everonel         ###   ########.fr       */
+/*   Updated: 2023/11/09 23:54:53 by everonel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 
 class IMateriaSource {
     public:
-        virtual             ~IMateriaSource() {}
+        virtual             ~IMateriaSource() { }
         virtual void        learnMateria(AMateria*) = 0;
         virtual AMateria*   createMateria(std::string const & type) = 0;
 };

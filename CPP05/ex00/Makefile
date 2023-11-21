@@ -1,14 +1,7 @@
-NAME = ex03
+NAME = ex00
 
 SRCS = main.cpp \
-      AMateria.cpp \
-	  Ice.cpp \
-	  Cure.cpp \
-	  Character.cpp \
-	  MateriaSource.cpp \
-	  ICharacter.cpp \
-	  IMateriaSource.cpp \
-	  
+      Bureaucrat.cpp \
 
 OBJS = $(SRCS:.cpp=.o)
 

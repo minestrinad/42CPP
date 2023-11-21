@@ -12,17 +12,7 @@
 
 #include "Character.hpp"
 
-/*Character(std::string);
-Character(Character &);
-~Character( );
-
-std::string const & getName() const;
-void                equip(AMateria *);
-void                unequip(int);
-void                use(int, ICharacter &);
-
-Character &operator=(Character &);*/
-
+//              costruttori
 Character::Character(std::string name) : _name(name) {
     for (int i = 0; i < DIM_INVENTORY;  i++)
         _inventory[i] = NULL;
@@ -36,10 +26,12 @@ Character::Character(Character &src) {
     std::cout << DEBUG << "A Character has been copied" << RESET << std::endl;
 }
 
+//              distruttore
 Character::~Character() { 
     std::cout << DEBUG << "A Character has been deallocated" << RESET << std::endl;
 }
 
+//              metodi
 std::string const &Character::getName() const {
     return _name;
 }
@@ -68,6 +60,7 @@ void Character::use(int idx, ICharacter &target) {
     this->unequip(idx);
 }
 
+//              overload
 Character &Character::operator=(Character &src) {
     for (int i = 0; i < DIM_INVENTORY; i++){
         if (_inventory[i] != NULL)
