@@ -12,7 +12,7 @@
 
 #include "ShrubberyCreationForm.hpp"
 
-ShrubberyCreationForm::ShrubberyCreationForm( std::string target ) : AForm("ShrubberyCreationForm", 145, 137), _target(target) { }
+ShrubberyCreationForm::ShrubberyCreationForm( std::string target ) : AForm("ShrubberyCreationForm", 145, 137), _target(target + "_shrubbery") { }
 
 ShrubberyCreationForm::ShrubberyCreationForm( const ShrubberyCreationForm &src ) { *this = src; }
 
@@ -20,8 +20,7 @@ ShrubberyCreationForm::~ShrubberyCreationForm( ) { }
 
 void    ShrubberyCreationForm::execute( ) { 
     std::fstream fd;
-    std::string  file_complete_name = _target + "_shruberry";
-    fd.open(file_complete_name, std::fstream::in | std::fstream::out | std::fstream::trunc);
+    fd.open(_target, std::fstream::in | std::fstream::out | std::fstream::trunc);
     fd << "             .        +          .      .          ." << std::endl;
     fd << "     .            _        .                    ." << std::endl;
     fd << "  ,              /;-._,-.____        ,-----.__" << std::endl;
@@ -32,7 +31,7 @@ void    ShrubberyCreationForm::execute( ) {
     fd << ".           \\/:/`-' , ,\\ '` ` `   ): , /_  -o" << std::endl;
     fd << "       .    /:+- - + +- : :- + + -:'  /(o-) \\)     ." << std::endl;
     fd << "  .      ,=':  \\    ` `/` ' , , ,:' `'--\".--\"---._/`7" << std::endl;
-    fd << "   `.   (    \\: \\,-._` ` + '\\, ,"   _,--._,---":.__/" << std::endl;
+    fd << "   `.   (    \\: \\,-._` ` + '\\, ,\"   _,--._,---\":.__/" << std::endl;
     fd << "              \\:  `  X` _| _,\\/'   .-'" << std::endl;
     fd << ".               \":._:`\\____  /:'  /      .           ." << std::endl;
     fd << "                    \\::.  :\\/:'  /              +" << std::endl;
