@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "Bureaucrat.hpp"
+#include "Form.hpp"
 
 int main()
 {
@@ -18,30 +19,22 @@ int main()
     std::cout << "Successfull tests" << std::endl;
     try
     {
-		Bureaucrat b1("B1", 1);
-		std::cout << b1 << std::endl;
-		Bureaucrat b2("B2", 150);
-		std::cout << b2 << std::endl;
-		Bureaucrat b3("B3", 42);
-		std::cout << b3 << std::endl;
+		//Successfull tests
+		Bureaucrat bureaucrat("Bureaucrat1", 1);
+		Form form("F1", 1, 1);
+		bureaucrat.signForm(form);
+		Form form2("F2", 100, 100);
+		bureaucrat.signForm(form2);
+		std::cout << std::endl;
 
-		std::cout << "Succesfull increment / decrement" << std::endl;
-		b3.incrementGrade();
-		std::cout << b3 << std::endl;
-		b3.decrementGrade();
-		std::cout << b3 << std::endl;
-
-		std::cout << "Unsuccesfull increment / decrement" << std::endl;
-		b1.incrementGrade();
-		std::cout << b1 << std::endl;
-		b2.decrementGrade();
-		std::cout << b2 << std::endl;
-
-		std::cout << "Unsuccessfull tests" << std::endl;
-		Bureaucrat b4("B4", 0);
-		std::cout << b1 << std::endl;
-		Bureaucrat b5("B5", 151);
-		std::cout << b2 << std::endl;
+		//Unsuccessfull tests
+		Form form4("F4", 500, 500);
+		Form form5("F5", 0, 0);
+		Bureaucrat bureaucrat2("Bureaucrat2", 100);
+		Form form3("F3", 1, 1);
+		bureaucrat2.signForm(form3);
+		bureaucrat2.signForm(form2);
+		bureaucrat2.signForm(form4);
 	}
 	catch (std::exception& e)
 	{

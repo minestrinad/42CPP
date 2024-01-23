@@ -10,8 +10,8 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef BUREAUCRAT_HPP
-# define BUREUCRAT_HPP
+#ifndef AFORM_HPP
+# define AFORM_HPP
 
 // colors and fonts:
 # define TEXT_RESET "\033[0m"
@@ -25,37 +25,42 @@
 # define COLOR_MSG_TESTING "\033[3;33m"
 
 // messages:
-# define MSG_CONSTRUCTION "\033[3;36mA new Bureaucrat has been allocated successfully! The name is : "
-# define MSG_DESTRUCTION "\033[3;36mA Bureaucrat has been burried. rest in peace "
+# define MSG_CONSTRUCTION "\033[3;36mA new Form has been allocated successfully! The name is : "
+# define MSG_DESTRUCTION "\033[3;36mA Form has been burried. rest in peace "
 
 #include <iostream>
+#include <stdexcept>
+#include "Bureaucrat.hpp"
 
-class Bureaucrat
+class Bureaucrat;
+
+class AForm
 {
     public:
         /*__________________________________________
         |________________Constructors_______________|
-        */ 
-        Bureaucrat( std::string, int );
-        Bureaucrat( const Bureaucrat & );
-        ~Bureaucrat( );
+        */
+        AForm(std::string, int, int);
+        AForm(const AForm&);
+        ~AForm();
 
         /*__________________________________________
         |_____________Getters / Setters_____________|
         */
-        const std::string   &getName( ) const;
-        int                 getGrade( ) const;
-        
+        const std::string       &getName() const;
+        const int               &getGradeToSign() const;
+        const int               &getGradeToExecute() const;
+        bool                    getIsSigned() const;
+
         /*__________________________________________
         |_______________Public Methods______________|
         */
-        void        incrementGrade( );
-        void        decrementGrade( );
+        void        beSigned(const Bureaucrat&);
         void        handleException(const std::exception& ex);
         /*__________________________________________
         |_____________Operator Overloads____________|
         */
-        const Bureaucrat &operator=(const Bureaucrat &);
+        const AForm& operator=(const AForm&);
 
         /*__________________________________________
         |_________________Exceptions________________|
@@ -74,13 +79,22 @@ class Bureaucrat
                     : std::invalid_argument(name + " grade is too low" + cons) {}
         };
 
+        class AlreadySignedException : public std::invalid_argument
+        {
+            public:
+                explicit AlreadySignedException(const std::string& name, const std::string& cons)
+                    : std::invalid_argument(name + " is already signed" + cons) {}
+        };
+
     private:
         /*__________________________________________
         |_________________Attributes________________|
         */
         const std::string   _name;
-        int                 _grade;
-        
+        const int           _gradeToSign;
+        const int           _gradeToExecute;
+        bool                _isSigned;
+
         /*__________________________________________
         |______________Private Methods______________|
         */
@@ -90,6 +104,6 @@ class Bureaucrat
 /*__________________________________________
 |_________Stream Operator Overloads_________|
 */
-std::ostream& operator<<(std::ostream&, const Bureaucrat&);
+std::ostream& operator<<(std::ostream&, const AForm&);
 #endif
 

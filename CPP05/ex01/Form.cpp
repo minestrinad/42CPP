@@ -23,7 +23,6 @@ Form::Form(std::string name, int gradeToSign, int gradeToExecute) : _name(name),
     }
     catch (std::exception& ex) {
         handleException(ex);
-        delete this;
     }
 }
 
@@ -38,9 +37,9 @@ Form::~Form() {
 */
 const std::string& Form::getName() const { return _name; }
 
-const int          Form::getGradeToSign() const { return _gradeToSign; }
+const int          &Form::getGradeToSign() const { return _gradeToSign; }
 
-const int          Form::getGradeToExecute() const { return _gradeToSign; }
+const int          &Form::getGradeToExecute() const { return _gradeToSign; }
 
 bool               Form::getIsSigned() const { return _isSigned; }
 
@@ -49,7 +48,14 @@ bool               Form::getIsSigned() const { return _isSigned; }
 */
 
 void    Form::beSigned(const Bureaucrat& bureaucrat) {
-    if (bureaucrat.getGrade() > _gradeToSign) {
+    
+    if (_gradeToSign < 1) {
+        throw Form::GradeTooHighException(_name, ": The Form grade is invalid");
+    }
+    else if (_gradeToSign > 150) {
+        throw Form::GradeTooLowException(_name, ": The Form grade is invalid");
+    }
+    else if (bureaucrat.getGrade() > _gradeToSign) {
 		throw Bureaucrat::GradeTooLowException(_name, ": The grade is too low to sign this form");
     }
     else if (_isSigned) {
@@ -80,10 +86,10 @@ const Form& Form::operator=(const Form& src) {
 */
 void        Form::_validateGrade(int grade) {
     if (grade < 1) {
-        throw Form::GradeTooHighException(_name, ": The grade is by default set to 1");
+        throw Form::GradeTooHighException(_name, ": The Form is invalid");
     }
     else if (grade > 150) {
-        throw Form::GradeTooLowException(_name, ": The grade is by default set to 150");
+        throw Form::GradeTooLowException(_name, ": The Form is invalid");
     }
 }
 

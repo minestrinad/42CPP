@@ -19,7 +19,7 @@ Bureaucrat::Bureaucrat(std::string name, int grade) : _name(name) {
     try {
         _validateGrade(grade);
         _grade = grade;
-        std::cout << MSG_CONSTRUCTION << _name << TEXT_RESET << std::endl;
+        std::cout << "\033[3;36mA new Bureaucrat has been allocated successfully! The name is : " << _name << TEXT_RESET << std::endl;
     }
     catch (std::exception& ex) {
         handleException(ex);
@@ -29,7 +29,7 @@ Bureaucrat::Bureaucrat(std::string name, int grade) : _name(name) {
 Bureaucrat::Bureaucrat(const Bureaucrat &src) { *this = src; }
 
 Bureaucrat::~Bureaucrat( ) { 
-    std::cout << MSG_DESTRUCTION << _name << TEXT_RESET << std::endl;
+    std::cout << "\033[3;36mA Bureaucrat has been burried. rest in peace " << _name << TEXT_RESET << std::endl;
 }
 
 /*__________________________________________
@@ -58,6 +58,16 @@ void    Bureaucrat::incrementGrade() {
         _validateGrade(_grade - 1);
         _grade--;
         std::cout << COLOR_MSG_TESTING << _name << " grade incremented to " << _grade << TEXT_RESET << std::endl;
+    }
+    catch (std::exception& ex) {
+        handleException(ex);
+    }
+}
+
+void    Bureaucrat::signForm(Form& form) {
+    try {
+        form.beSigned(*this);
+        std::cout << COLOR_MSG_TESTING << _name << " signs " << form.getName() << TEXT_RESET << std::endl;
     }
     catch (std::exception& ex) {
         handleException(ex);
