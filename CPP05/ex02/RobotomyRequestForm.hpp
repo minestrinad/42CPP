@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   RobotomyRequestForm.hpp                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: everonel <everonel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: everonel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/23 16:47:59 by everonel          #+#    #+#             */
-/*   Updated: 2024/01/23 17:18:42 by everonel         ###   ########.fr       */
+/*   Updated: 2024/01/27 21:23:20 by everonel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ class RobotomyRequestForm : public AForm
         RobotomyRequestForm( const RobotomyRequestForm & );
         ~RobotomyRequestForm( );
 
-        void    execute( );
+        void    action( ) const;
 
         RobotomyRequestForm &operator=( const RobotomyRequestForm & );
 };

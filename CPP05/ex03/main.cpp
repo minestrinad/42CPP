@@ -14,6 +14,7 @@
 #include "ShrubberyCreationForm.hpp"
 #include "PresidentialPardonForm.hpp"
 #include "RobotomyRequestForm.hpp"
+#include "Intern.hpp"
 
 int main()
 {
@@ -22,24 +23,22 @@ int main()
     try
     {
 		//Successfull tests
-		Bureaucrat bureaucrat("Bureaucrat1", 1);
-		ShrubberyCreationForm shrubberyCreationForm("Shrubbery");
-		std::cout << shrubberyCreationForm << std::endl;
-		PresidentialPardonForm presidentialPardonForm("Presidential");
-		std::cout << presidentialPardonForm << std::endl;
-		RobotomyRequestForm robotomyRequestForm("Robotomy");
-		std::cout << robotomyRequestForm << std::endl;
-		bureaucrat.signForm(shrubberyCreationForm);
-		bureaucrat.signForm(presidentialPardonForm);
-		bureaucrat.signForm(robotomyRequestForm);
-		bureaucrat.executeForm(shrubberyCreationForm);
-		bureaucrat.executeForm(presidentialPardonForm);
-		bureaucrat.executeForm(robotomyRequestForm);
+		Intern intern = Intern();
+		
+		AForm *form1 = intern.makeForm("ShrubberyCreationForm", "home");
+		std::cout << *form1 << std::endl;
+		std::cout << "Target: " << (*form1).getTarget() << std::endl;
+		AForm *form2 = intern.makeForm("RobotomyRequestForm", "home");
+		std::cout << *form2 << std::endl;
+		std::cout << "Target: " << (*form2).getTarget() << std::endl;
+		AForm *form3 = intern.makeForm("PresidentialPardonForm", "home");
+		std::cout << *form3 << std::endl;
+		std::cout << "Target: " << (*form3).getTarget() << std::endl;
 		//Unsuccessfull tests
-		Bureaucrat bureaucrat2("Bureaucrat2", 150);
-		bureaucrat2.executeForm(shrubberyCreationForm);
-		bureaucrat2.executeForm(presidentialPardonForm);
-		bureaucrat2.executeForm(robotomyRequestForm);
+		AForm *form4 = intern.makeForm("UnknowForm", "home");	
+		(void) form4;
+		// std::cout << *form4 << std::endl;
+		// std::cout << "Target: " << (*form4).getTarget() << std::endl;
 	}
 	catch (std::exception& e)
 	{

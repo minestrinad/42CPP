@@ -1,33 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   PresidentialPardonForm.hpp                         :+:      :+:    :+:   */
+/*   RobotomyRequestForm.hpp                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: everonel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/01/23 17:08:10 by everonel          #+#    #+#             */
-/*   Updated: 2024/01/27 21:23:09 by everonel         ###   ########.fr       */
+/*   Created: 2024/01/23 16:47:59 by everonel          #+#    #+#             */
+/*   Updated: 2024/01/30 15:11:32 by everonel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PRESIDENTIALPARDONFORM_HPP
-# define PRESIDENTIALPARDONFORM_HPP
+#ifndef ROBOTOMYREQUESTFORM_HPP
+# define ROBOTOMYREQUESTFORM_HPP
 
-#include "AForm.hpp"
+# include "AForm.hpp"
 
-class PresidentialPardonForm : public AForm
+
+class RobotomyRequestForm : public AForm
 {
     private:
         std::string _target;
 
     public:
-        PresidentialPardonForm( std::string );
-        PresidentialPardonForm( const PresidentialPardonForm & );
-        ~PresidentialPardonForm( );
+        RobotomyRequestForm( std::string );
+        RobotomyRequestForm( const RobotomyRequestForm & );
+        ~RobotomyRequestForm( );
 
         void    action( ) const;
+        std::string getTarget() const { return _target; };
 
-        PresidentialPardonForm &operator=( const PresidentialPardonForm & );
+        RobotomyRequestForm &operator=( const RobotomyRequestForm & );
 };
 
 #endif
+

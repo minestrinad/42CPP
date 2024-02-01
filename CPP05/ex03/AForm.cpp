@@ -39,7 +39,7 @@ const std::string& AForm::getName() const { return _name; }
 
 const int          &AForm::getGradeToSign() const { return _gradeToSign; }
 
-const int          &AForm::getGradeToExecute() const { return _gradeToSign; }
+const int          &AForm::getGradeToExecute() const { return _gradeToExecute; }
 
 bool               AForm::getIsSigned() const { return _isSigned; }
 
@@ -86,7 +86,6 @@ AForm::AlreadySignedException::AlreadySignedException(const std::string &name, c
 
 AForm::TryingToExecNonSignedForm::TryingToExecNonSignedForm(const std::string &name, const std::string &extra) : std::invalid_argument(name + " " + extra) { }
 
- // name + " grade is too low " + extra) { }
 /*__________________________________________
 |_____________Operator Overloads____________|
 */
@@ -109,15 +108,36 @@ void        AForm::_validateGrade(int grade) {
     }
 }
 
+std::ostream& operator<<(std::ostream &os, const AForm &src) {
+    os << "Name: " << src.getName() << std::endl;
+    os << "Grade To Sign: " << src.getGradeToSign() << std::endl;
+    os << "Grade To Execute: " << src.getGradeToExecute() << std::endl;
+    os << "Is Signed: ";
+    src.getIsSigned() ? os << "Yes" : os << "No";
+    os << std::endl;
+    return os;
+}
+// std::ostream  &AForm::print(std::ostream& os) const {
+//     // os << "Name: " << getName() << std::endl;
+//     // os << "Grade To Sign: " << getGradeToSign() << std::endl;
+//     // os << "Grade To Execute: " << getGradeToExecute() << std::endl;
+//     // os << "Is Signed: ";
+//     // getIsSigned() ? os << "Yes" : os << "No";
+//     // os << std::endl;
+//     os << "TEST" << std::endl;
+//     return os;
+// }
+
 /*__________________________________________
 |_________Stream Operator Overloads_________|
 */
-std::ostream& operator<<(std::ostream& out, const AForm& src) {
-    out << "Name: " << src.getName() << std::endl;
-    out << "Grade To Sign: " << src.getGradeToSign() << std::endl;
-    out << "Grade To Execute: " << src.getGradeToExecute() << std::endl;
-    out << "Is Signed: ";
-    src.getIsSigned() ? out << "Yes" : out << "No";
-    out << std::endl;
-    return out;
-}
+
+// std::ostream& operator<<(std::ostream& os, const AForm& src) {
+//     os << "Name: " << src.getName() << std::endl;
+//     os << "Grade To Sign: " << src.getGradeToSign() << std::endl;
+//     os << "Grade To Execute: " << src.getGradeToExecute() << std::endl;
+//     os << "Is Signed: ";
+//     src.getIsSigned() ? os << "Yes" : os << "No";
+//     os << std::endl;
+//     return os;
+// }

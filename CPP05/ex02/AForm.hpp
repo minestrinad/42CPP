@@ -10,6 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#pragma once
 #ifndef AFORM_HPP
 # define AFORM_HPP
 
@@ -42,7 +43,7 @@ class AForm
         */
         AForm(std::string, int, int);
         AForm(const AForm&);
-        ~AForm();
+        virtual ~AForm() = 0;
 
         /*__________________________________________
         |_____________Getters / Setters_____________|
@@ -55,8 +56,10 @@ class AForm
         /*__________________________________________
         |_______________Public Methods______________|
         */
-        void        beSigned(const Bureaucrat&);
-        void        handleException(const std::exception& ex);
+        void            beSigned(const Bureaucrat&);
+        void            execute(Bureaucrat const & executor);
+        virtual void    action() const = 0;
+        void            handleException(const std::exception& ex);
         /*__________________________________________
         |_____________Operator Overloads____________|
         */
@@ -68,22 +71,25 @@ class AForm
         class GradeTooHighException : public std::invalid_argument
         {
             public:
-                explicit GradeTooHighException(const std::string& name, const std::string& cons)
-                    : std::invalid_argument(name + " grade is too high" + cons) {}
+                GradeTooHighException(const std::string &name, const std::string &cons);
         };
 
         class GradeTooLowException : public std::invalid_argument
         {
             public:
-                explicit GradeTooLowException(const std::string& name, const std::string& cons)
-                    : std::invalid_argument(name + " grade is too low" + cons) {}
+                GradeTooLowException(const std::string &name, const std::string &cons);
         };
 
         class AlreadySignedException : public std::invalid_argument
         {
             public:
-                explicit AlreadySignedException(const std::string& name, const std::string& cons)
-                    : std::invalid_argument(name + " is already signed" + cons) {}
+                AlreadySignedException(const std::string &name, const std::string &cons);
+        };
+
+        class TryingToExecNonSignedForm : public std::invalid_argument
+        {
+            public:
+                TryingToExecNonSignedForm(const std::string &name, const std::string &extra);
         };
 
     private:
@@ -99,6 +105,7 @@ class AForm
         |______________Private Methods______________|
         */
         void        _validateGrade(int);
+        void        _validateForExecution(Bureaucrat const & executor);
 };
 
 /*__________________________________________

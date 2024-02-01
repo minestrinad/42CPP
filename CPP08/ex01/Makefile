@@ -1,11 +1,7 @@
-NAME = ex02
+NAME = ex01
 
 SRCS = main.cpp \
-      Bureaucrat.cpp \
-	  AForm.cpp \
-	  ShrubberyCreationForm.cpp \
-	  RobotomyRequestForm.cpp \
-	  PresidentialPardonForm.cpp\
+		Span.cpp	\
 
 OBJS = $(SRCS:.cpp=.o)
 
@@ -22,7 +18,6 @@ $(NAME): $(OBJS)
 clean:
 	@echo "Cleaning..."
 	rm -f $(OBJS)
-	rm -f *_shrubbery
 
 fclean: clean
 	@echo "Fcleaning..."
