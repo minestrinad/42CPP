@@ -26,7 +26,6 @@
 
 # include <iostream>
 # include <stdexcept>
-# include "Form.hpp"
 
 class Bureaucrat
 {
@@ -49,8 +48,7 @@ class Bureaucrat
         */
         void        incrementGrade( );
         void        decrementGrade( );
-        void        signForm( Form& );
-        void        handleException(const std::exception& ex);
+        // void        handleException(const std::exception& ex);
         /*__________________________________________
         |_____________Operator Overloads____________|
         */
@@ -59,18 +57,24 @@ class Bureaucrat
         /*__________________________________________
         |_________________Exceptions________________|
         */
-        class GradeTooHighException : public std::invalid_argument
+        class GradeTooHighException : public std::exception
         {
             public:
-                explicit GradeTooHighException(const std::string& name, const std::string& cons)
-                    : std::invalid_argument(name + " grade is too high" + cons) {}
+                GradeTooHighException(const std::string& name, const std::string& cons);
+                ~GradeTooHighException() throw() { };
+                virtual const char* what() throw();
+            private:
+                std::string _msg;
         };
 
-        class GradeTooLowException : public std::invalid_argument
+        class GradeTooLowException : public std::exception
         {
             public:
-                explicit GradeTooLowException(const std::string& name, const std::string& cons)
-                    : std::invalid_argument(name + " grade is too low" + cons) {}
+                GradeTooLowException(const std::string& name, const std::string& cons);
+                ~GradeTooLowException() throw() { };
+                virtual const char* what() throw();
+            private:
+                std::string _msg;
         };
 
     private:
@@ -90,5 +94,6 @@ class Bureaucrat
 |_________Stream Operator Overloads_________|
 */
 std::ostream& operator<<(std::ostream&, const Bureaucrat&);
+
 #endif
 
