@@ -1,0 +1,153 @@
+________ e ________
+char:   'e'
+int:    101
+float:  101.0f
+double: 101.0
+______________________
+________ l ________
+char:   'l'
+int:    108
+float:  108.0f
+double: 108.0
+______________________
+________ o ________
+char:   'o'
+int:    111
+float:  111.0f
+double: 111.0
+______________________
+________ H ________
+char:   'H'
+int:    72
+float:  72.0f
+double: 72.0
+______________________
+________ W ________
+char:   'W'
+int:    87
+float:  87.0f
+double: 87.0
+______________________
+________ { ________
+char:   '{'
+int:    123
+float:  123.0f
+double: 123.0
+______________________
+________   ________
+char:   ' '
+int:    32
+float:  32.0f
+double: 32.0
+______________________
+Testing with literal integer
+________ 0 ________$
+char:   Non displayable$
+int:    0$
+float:  0.0f$
+double: 0.0$
+______________________$
+________ -42 ________$
+char:   impossible$
+int:    -42$
+float:  -42.0f$
+double: -42.0$
+______________________$
+________ 42 ________$
+char:   '*'$
+int:    42$
+float:  42.0f$
+double: 42.0$
+______________________$
+Testing with literal float
+________ 0.0f ________$
+char:   Non displayable$
+int:    0$
+float:  0.0f$
+double: 0.0$
+______________________$
+________ -42.42f ________$
+char:   impossible$
+int:    -42$
+float:  -42.4f$
+double: -42.4$
+______________________$
+________ 42.42f ________$
+char:   '*'$
+int:    42$
+float:  42.4f$
+double: 42.4$
+______________________$
+________ +inff ________$
+char:   impossible$
+int:    impossible$
+float:  inff$
+double: inf$
+______________________$
+________ -inff ________$
+char:   impossible$
+int:    impossible$
+float:  -inff$
+double: -inf$
+______________________$
+________ nanf ________$
+char:   impossible$
+int:    impossible$
+float:  nanf$
+double: nan$
+______________________$
+Testing with literal double
+________ 0.0 ________$
+char:   Non displayable$
+int:    0$
+float:  0.0f$
+double: 0.0$
+______________________$
+________ -42.42 ________$
+char:   impossible$
+int:    -42$
+float:  -42.4f$
+double: -42.4$
+______________________$
+________ 42.42 ________$
+char:   '*'$
+int:    42$
+float:  42.4f$
+double: 42.4$
+______________________$
+________ +inf ________$
+char:   impossible$
+int:    impossible$
+float:  inff$
+double: inf$
+______________________$
+________ -inf ________$
+char:   impossible$
+int:    impossible$
+float:  -inff$
+double: -inf$
+______________________$
+________ nan ________$
+char:   impossible$
+int:    impossible$
+float:  nanf$
+double: nan$
+______________________$
+Testing with empty string
+________  ________$
+char:   impossible$
+int:    impossible$
+float:  impossible$
+double: impossible$
+______________________$
+Testing with no arguments
+Usage: ./convert [value]$
+Testing with 1 argument
+________ Hello ________$
+char:   impossible$
+int:    impossible$
+float:  impossible$
+double: impossible$
+______________________$
+Testing with 2 arguments
+Usage: ./convert [value]$

@@ -6,7 +6,7 @@
 /*   By: everonel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/31 11:28:55 by everonel          #+#    #+#             */
-/*   Updated: 2024/01/31 21:21:08 by everonel         ###   ########.fr       */
+/*   Updated: 2024/02/08 20:33:08 by everonel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,33 +16,24 @@
 #include <iostream>
 #include <string>
 #include <sstream>
+# include <limits>
+# include <iomanip>
 
 class ScalarConvert {
     public: 
+        static void     convert( const std::string & );
+        
+    private:
         ScalarConvert( );
         ScalarConvert( const ScalarConvert & );
         ~ScalarConvert( );
 
         ScalarConvert &operator=( const ScalarConvert & );
-
-
-        template <typename T>
-        static T convert(const std::string &str) {
-            T   scalarValue;
-
-            std::istringstream iss(str);                        //da fare con lo static cast
-            try {
-                if (!(iss >> scalarValue)) {
-                    throw std::invalid_argument("Failed to convert string to T");
-                }
-                return scalarValue;
-            }
-            catch (std::exception &e) {
-                std::cout << e.what() << std::endl;
-                return 0;
-            }
-        }
-    private:
+        static  void    _printImpossible( );
+        static  bool    _specialCase(const std::string &literal);
+        static  void    _tryConvertToNumeric( const std::string & );
+        static  void    _printNumeric( int , float , double );
+        static  void    _tryPrintChar( char );
 };
 
 #endif
