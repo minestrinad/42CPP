@@ -6,7 +6,7 @@
 /*   By: everonel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/01 01:04:07 by everonel          #+#    #+#             */
-/*   Updated: 2024/02/01 14:42:02 by everonel         ###   ########.fr       */
+/*   Updated: 2024/02/08 21:20:52 by everonel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ void    Span::addNumber( const int nbr ) {
             _size++;
         }
         else
-            throw std::bad_alloc();
+            throw std::length_error("Max number of elements reached");
     }
     catch (std::exception &e){
         std::cout << "Error: " << e.what() << std::endl;
@@ -45,8 +45,8 @@ void    Span::addMoreNumbers( const std::vector<int> src ) {
 
 int Span::shortestSpan() {
     try {
-        if (_size == 0 || _size == 1)
-            throw std::exception();
+        if (_size <= 1 )
+            throw std::invalid_argument("Not enough elements to compare");
         
         int shortest = std::numeric_limits<int>::max();
         std::vector<int>::iterator it = _vec.begin();
@@ -69,7 +69,7 @@ int Span::shortestSpan() {
 int Span::longestSpan( ) {
     try {
         if (_size <= 1)
-            throw std::exception();
+            throw std::invalid_argument("Not enough elements to compare");
         return _vec[0] - _vec[_size - 1];
     }
     catch (std::exception &e) {
@@ -79,12 +79,12 @@ int Span::longestSpan( ) {
 }
 
 Span    &Span::operator=( const Span &src ) {
-    if (this == &src)
-        return *this;
-    for (int i = 0; i < _size; i++) {
-        _vec[i] = src._vec[i];
+    if (this != &src) {
+        for (int i = 0; i < _size; i++) {
+            _vec[i] = src._vec[i];
+        }
+        _size = src._size;
     }
-    _size = src._size;
     return *this;
 }
 

@@ -6,7 +6,7 @@
 /*   By: everonel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/02 22:42:08 by everonel          #+#    #+#             */
-/*   Updated: 2024/02/03 17:26:25 by everonel         ###   ########.fr       */
+/*   Updated: 2024/02/08 23:06:29 by everonel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,11 +18,9 @@ int main (int ac, char **av)
         return std::cout << "Usage: ./rnp <expression>", 1;
         
     try {
-        
         std::stack<float> numberStack;
-        int res = solveRPN(av[1]);
+        float res = solveRPN(av[1]);
         std::cout << res << std::endl;
-
     } catch( std::invalid_argument &ex) {
         std::cout << "Invalid argument: " << ex.what() << std::endl;
     } catch( std::logic_error &ex) {

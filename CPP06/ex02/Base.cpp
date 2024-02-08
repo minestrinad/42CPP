@@ -6,7 +6,7 @@
 /*   By: everonel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/31 13:28:44 by everonel          #+#    #+#             */
-/*   Updated: 2024/01/31 21:29:07 by everonel         ###   ########.fr       */
+/*   Updated: 2024/02/08 20:42:56 by everonel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,8 +37,7 @@ void identify(Base *p) {
     }
     catch (std::exception &e) {
         std::cout << e.what() << std::endl;
-    }
-        
+    }       
 }
 
 void identify(Base &p) {

@@ -6,7 +6,7 @@
 /*   By: everonel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/01 16:42:26 by everonel          #+#    #+#             */
-/*   Updated: 2024/02/04 22:06:16 by everonel         ###   ########.fr       */
+/*   Updated: 2024/02/08 22:18:08 by everonel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,11 +30,11 @@
 
 class BitcoinExchanger {
     private:
-        std::map<std::string, float>    _dataMap;
+        std::map<int, float>    _dataMap;
 
         float       _validateQuery( const std::string& );
-        void        _validateDate( const std::string& );
-        std::string _findClosestDate(const std::string& );
+        void         _validateDate( const std::string& );
+        int         _findClosestDate(const std::string& );
         int         _str2time( const std::string& );
         
         template<typename T>T   _tryParseFloat(const std::string& );

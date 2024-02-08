@@ -6,7 +6,7 @@
 /*   By: everonel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/01 00:57:14 by everonel          #+#    #+#             */
-/*   Updated: 2024/02/01 14:46:32 by everonel         ###   ########.fr       */
+/*   Updated: 2024/02/08 21:25:52 by everonel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int main( )
     std::vector<int> vec;
 
     for (int i = 0; i < MAX_NUM; i++){
-        int num = rand() % 10000;
+        int num = rand() % 500;
         vec.push_back(num);
     }
 

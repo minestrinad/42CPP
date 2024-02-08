@@ -6,7 +6,7 @@
 /*   By: everonel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/31 20:48:02 by everonel          #+#    #+#             */
-/*   Updated: 2024/01/31 21:33:24 by everonel         ###   ########.fr       */
+/*   Updated: 2024/02/08 20:47:26 by everonel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,12 @@
 
 # include <iostream>
 
-template <typename T, typename TFunc>void iter(T *arr, int arrLen,  TFunc func) {
-    for (int i = 0; i < arrLen; i++) {
-        func(arr[i]);
+template <typename T, typename TFunc>void iter(T *ptr, int ptrSize,  TFunc func) {
+    if (!ptr) {
+        return;
+    }
+    for (int i = 0; i < ptrSize; i++) {
+        func(ptr[i]);
     }
 }
 

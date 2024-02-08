@@ -6,7 +6,7 @@
 /*   By: everonel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/03 01:40:10 by everonel          #+#    #+#             */
-/*   Updated: 2024/02/03 17:26:43 by everonel         ###   ########.fr       */
+/*   Updated: 2024/02/08 22:55:48 by everonel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ float   solveRPN( const std::string& exp) {
                 throw std::invalid_argument("Number too large");
             }
             numberStack.push(num);
-        }
+        } 
     }
     if (numberStack.size() != 1) {
         throw std::logic_error("Invalid Expression");
@@ -45,7 +45,7 @@ float   solveRPN( const std::string& exp) {
 
 float   tryParseInt( std::string src ) {
     std::istringstream iss(src);
-    int result;
+    float result;
 
     if (!(iss >> result)){
         throw std::invalid_argument("Conversion failed");

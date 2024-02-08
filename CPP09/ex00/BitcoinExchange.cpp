@@ -6,13 +6,13 @@
 /*   By: everonel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/03 17:59:51 by everonel          #+#    #+#             */
-/*   Updated: 2024/02/04 22:24:19 by everonel         ###   ########.fr       */
+/*   Updated: 2024/02/08 22:44:12 by everonel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "BitcoinExchange.hpp"
 
-BitcoinExchanger::BitcoinExchanger( ) : _dataMap(std::map<std::string, float>()) {
+BitcoinExchanger::BitcoinExchanger( ) : _dataMap(std::map<int, float>()) {
     std::fstream file;
 
     file.open("data.csv", std::ios::in);
@@ -23,7 +23,7 @@ BitcoinExchanger::BitcoinExchanger( ) : _dataMap(std::map<std::string, float>())
         std::string line;
         std::getline(file, line);
         if (line.size() > 0) {
-            _dataMap[line.substr(0, DATE_SIZE)] = strtod(line.substr(DATE_SIZE + 1).c_str(), NULL);
+            _dataMap[_str2time(line.substr(0, DATE_SIZE))] = strtod(line.substr(DATE_SIZE + 1).c_str(), NULL);
         }
     }
 }
@@ -37,27 +37,12 @@ BitcoinExchanger &BitcoinExchanger::operator=( const BitcoinExchanger& other ) {
     return *this;
 }
 
-// float   _validateQuery( const std::string& query ) {
-//     std::istringstream iss(query);
-//     std::string token;
-//     std::getline(iss, token, '|');
-//     std::cout << "token: " << token << std::endl;
-//     // if (_dataMap.find(date) == _data.end()) {
-//     //     throw std::runtime_error("Date not found");
-//     // }  
-//     // if (dollar < 0) {
-//     //     throw std::runtime_error("Invalid amount");
-//     // }
-//     return 0;
-// }
-
 BitcoinExchanger::~BitcoinExchanger( ) { _dataMap.clear(); }
-
 
 float   BitcoinExchanger::answerQuery(const std::string& query) {
     try {
         float originalValue = _validateQuery(query);
-        std::cout << query << " => " << std::fixed << std::setprecision(2);
+        std::cout << query << " => ";
         std::cout << _dataMap[_findClosestDate(query.substr(0, 10))] * originalValue << std::endl;
         return originalValue;
     } catch (std::invalid_argument &e) {
@@ -115,27 +100,36 @@ template<typename T>T BitcoinExchanger::_tryParseFloat(const std::string& str) {
     return value;
 }
 
-std::string BitcoinExchanger::_findClosestDate(const std::string& str ) {
-    std::string closestDate = "";
-    std:map<std::string, float>::iterator it = _dataMap.begin();
+int BitcoinExchanger::_findClosestDate( const std::string& str ) {
+    std::map<int, float>::iterator it = _dataMap.begin();
+    int date = _str2time(str);
+    int closestDate;
 
-    for (; it != _dataMap.end() && it->first < str; ++it) {
+    if (_dataMap[date] != 0)
+        return date;
+
+    for (; it != _dataMap.end() && it->first < date; ++it) {
         closestDate = it->first;
     }
-    return (it == _dataMap.end() ? closestDate : ((it + 1)->first - str < str - closestDate ? it->first : closestDate));
-       
-    std::cout << "Closest date: " << closestDate << std::endl;
+
+    if (it != _dataMap.end()){
+        it++;
+        if (it->first - date < date - closestDate){
+            closestDate = it->first;
+        }
+    }
     return closestDate;
 }
 
-int     BitcoinExchanger::_str2time( const std::string& str ) {
-    std::string cleanDate = std::string(str);
+int BitcoinExchanger::_str2time( const std::string& str ) {
+    int time = 0;
+    int mult = 1;
 
-    while ( int pos = cleanDate.find('-')){
-        if (pos < 0) 
-            break;
-        cleanDate.erase(pos, 1);
+    for (int i = DATE_SIZE - 1; i >= 0; i--) {
+        if (str[i] != '-') {
+            time += (str[i] - '0') * mult;
+            mult *= 10;
+        }
     }
-
-    return _tryParseFloat<double>(cleanDate);
+    return time;
 }
