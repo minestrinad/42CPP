@@ -1,0 +1,7 @@
+Usage: ./rnp <expression>Usage: ./rnp <expression>Usage: ./rnp <expression>Usage: ./rnp <expression>Usage: ./rnp <expression>Invalid argument: Conversion failed
+Invalid argument: Conversion failed
+Invalid argument: Conversion failed
+Usage: ./rnp <expression>Usage: ./rnp <expression>Usage: ./rnp <expression>Usage: ./rnp <expression>Usage: ./rnp <expression>Usage: ./rnp <expression>Invalid argument: Conversion failed
+Invalid argument: Conversion failed
+Invalid argument: Conversion failed
+Usage: ./rnp <expression>

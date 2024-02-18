@@ -6,17 +6,17 @@
 /*   By: everonel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/31 11:40:54 by everonel          #+#    #+#             */
-/*   Updated: 2024/02/08 16:56:21 by everonel         ###   ########.fr       */
+/*   Updated: 2024/02/18 13:47:08 by everonel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ScalarConvert.hpp"
 
-ScalarConvert::ScalarConvert() { }
+ScalarConvert::ScalarConvert( ) { }
 
 ScalarConvert::ScalarConvert( ScalarConvert const & src ) { *this = src; }
 
-ScalarConvert::~ScalarConvert() { }
+ScalarConvert::~ScalarConvert( ) { }
 
 ScalarConvert &	ScalarConvert::operator=( ScalarConvert const & rhs )
 {
