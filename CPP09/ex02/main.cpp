@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: everonel <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: everonel <everonel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 23:18:44 by everonel          #+#    #+#             */
-/*   Updated: 2024/02/11 17:37:38 by everonel         ###   ########.fr       */
+/*   Updated: 2024/02/19 20:41:06 by everonel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int main(int ac, char **av)
 {
-    if (ac != 3)
+    if (ac < 3)
     {
         std::cerr << "Error: wrong number of arguments" << std::endl;
         return (1);
@@ -27,10 +27,11 @@ int main(int ac, char **av)
         std::cerr << "Error: " << e.what() << std::endl;
         return (1);
     }
-    std::cout << "Before: " << av + 1 << std::endl;
-    PmergeMe::PmergeList(av + 1);
-    PmergeMe::PmergeVector(av + 1);
-    // std::cout << "After: " << PmergeMe::getList() << std::endl;
-    // std::cout << "Time to process a range of " << PmergeMe::getSize << " elements with std::list : " << PmergeMe::getListTime() << std::endl;
-    // std::cout << "Time to process a range of " << PmergeMe::getSize << " elements with std::vector : " << PmergeMe::getVectorTime() << std::endl;
+
+    PmergeMe PmergeMe;
+    // PmergeMe.PmergeList(av, ac - 1);
+    PmergeMe.PmergeVector(av, ac - 1);
+    // std::cout << "After: " << PmergeMe.getList() << std::endl;
+    // std::cout << "Time to process a range of " << PmergeMe.getSize() << " elements with std::list : " << PmergeMe.getListTime() << std::endl;
+    std::cout << "Time to process a range of " << PmergeMe.getSize() << " elements with std::vector : " << PmergeMe.getVectorTime() << std::endl;
 }

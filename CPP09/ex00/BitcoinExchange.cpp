@@ -3,28 +3,20 @@
 /*                                                        :::      ::::::::   */
 /*   BitcoinExchange.cpp                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: everonel <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: everonel <everonel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/03 17:59:51 by everonel          #+#    #+#             */
-/*   Updated: 2024/02/08 22:44:12 by everonel         ###   ########.fr       */
+/*   Updated: 2024/02/19 12:24:40 by everonel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "BitcoinExchange.hpp"
 
 BitcoinExchanger::BitcoinExchanger( ) : _dataMap(std::map<int, float>()) {
-    std::fstream file;
-
-    file.open("data.csv", std::ios::in);
-    if (file.is_open() == false) {
-        throw std::runtime_error("File not found");
-    }
-    while (file.eof() == false) {
-        std::string line;
-        std::getline(file, line);
-        if (line.size() > 0) {
-            _dataMap[_str2time(line.substr(0, DATE_SIZE))] = strtod(line.substr(DATE_SIZE + 1).c_str(), NULL);
-        }
+    try {
+        _loadData();
+    } catch (std::runtime_error &e) {
+        std::cout << "Runtime error: " << e.what() << std::endl;
     }
 }
 
@@ -55,6 +47,23 @@ float   BitcoinExchanger::answerQuery(const std::string& query) {
     return 0;
 }
 
+void    BitcoinExchanger::_loadData( ) {
+    std::fstream file;
+
+    file.open(DATABASE, std::ios::in);
+    if (file.is_open() == false) {
+        throw std::runtime_error("Database file not found");
+    }
+    while (file.eof() == false) {
+        std::string line;
+        std::getline(file, line);
+        if (line.size() > 0) {
+            _dataMap[_str2time(line.substr(0, DATE_SIZE))] = strtod(line.substr(DATE_SIZE + 1).c_str(), NULL);
+        }
+    }
+    file.close();
+}
+
 float   BitcoinExchanger::_validateQuery( const std::string& query) {
     std::istringstream iss(query);
     std::string token;
@@ -67,7 +76,7 @@ float   BitcoinExchanger::_validateQuery( const std::string& query) {
         throw std::invalid_argument("Invalid format");
     
     std::getline(iss, token);
-    float amount = _tryParseFloat<float>(token);
+    float amount = _tryParseFloat(token);
     if (amount < 0 || amount > 1000) 
         throw std::invalid_argument("Invalid amount");
     
@@ -89,13 +98,13 @@ void   BitcoinExchanger::_validateDate( const std::string& date ) {
     }
 }
 
-template<typename T>T BitcoinExchanger::_tryParseFloat(const std::string& str) {
+float BitcoinExchanger::_tryParseFloat(const std::string& str) {
     std::istringstream iss(str);
-    T value;
+    float value;
 
     iss >> value;
     if (iss.fail() == true) 
-        throw std::invalid_argument("Invalid amount");
+        throw std::invalid_argument("Conversion failed");
 
     return value;
 }
