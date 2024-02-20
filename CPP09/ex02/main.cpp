@@ -3,14 +3,22 @@
 /*                                                        :::      ::::::::   */
 /*   main.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: everonel <everonel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: everonel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 23:18:44 by everonel          #+#    #+#             */
-/*   Updated: 2024/02/19 20:41:06 by everonel         ###   ########.fr       */
+/*   Updated: 2024/02/19 22:43:06 by everonel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "PmergeMe.hpp"
+
+template<class T>void printContainer(const T &c)
+{
+    for (typename T::const_iterator it = c.begin(); it != c.end(); it++) {
+        std::cout << *it << " ";
+    }
+    std::cout << std::endl;
+}
 
 int main(int ac, char **av)
 {
@@ -20,7 +28,8 @@ int main(int ac, char **av)
         return (1);
     }
     try {
-        PmergeMe::validateInput(av + 1);
+        // av++;
+        PmergeMe::validateInput(++av);
     }
     catch (std::exception &e)
     {
@@ -29,9 +38,19 @@ int main(int ac, char **av)
     }
 
     PmergeMe PmergeMe;
+    std::cout << "Before: ";
+    for (int i = 0; i < ac - 1; i++)
+    {
+        std::cout << av[i] << " ";
+    }
+    std::cout << std::endl;
     // PmergeMe.PmergeList(av, ac - 1);
     PmergeMe.PmergeVector(av, ac - 1);
-    // std::cout << "After: " << PmergeMe.getList() << std::endl;
+    // std::cout << "List After: ";
+    // printContainer<std::list<int> >(PmergeMe.getList());
+    std::cout << "After:  ";
+    printContainer<std::vector<int> >(PmergeMe.getVector());
+    std::cout << std::endl;
     // std::cout << "Time to process a range of " << PmergeMe.getSize() << " elements with std::list : " << PmergeMe.getListTime() << std::endl;
     std::cout << "Time to process a range of " << PmergeMe.getSize() << " elements with std::vector : " << PmergeMe.getVectorTime() << std::endl;
 }

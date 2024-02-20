@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   PmergeMe.cpp                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: everonel <everonel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: everonel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/10 20:35:08 by everonel          #+#    #+#             */
-/*   Updated: 2024/02/19 20:39:58 by everonel         ###   ########.fr       */
+/*   Updated: 2024/02/20 01:33:42 by everonel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,8 +49,6 @@ void PmergeMe::PmergeVector( char **av, int size) {
     _size = size;
     _vector = _fillContainer< std::vector<int> >(av);
     _vectorTime = _sortVector();
-    std::cout << "sort: ";
-    printVector(_vector);
 }
 
 void PmergeMe::validateInput( char **av ) {
@@ -60,7 +58,6 @@ void PmergeMe::validateInput( char **av ) {
         }
         for (int j = i + 1; av[j]; j++) {
             if (std::atoi(av[i]) == std::atoi(av[j])) {
-                std::cout << "i: " << av[i] << " j: " << av[j] << std::endl;
                 throw std::invalid_argument("Duplicate numbers are not allowed");
             }
         }
@@ -85,22 +82,78 @@ time_t PmergeMe::_sortList() {
 time_t PmergeMe::_sortVector() {
     time_t start = time(0);
     
-    std::vector<int>::iterator it = _vector.begin();
-    std::vector<int>::iterator it2 = _vector.begin();
-    it2++;
-    for (; it != _vector.end() && it2 != _vector.end(); it+=2, it2+=2) {
-        if (*it > *it2) {
-            std::swap(*it, *it2);
+    //************** 1. Sort Pairwise **************
+    {
+        std::vector<int>::iterator it = _vector.begin();
+        std::vector<int>::iterator it2 = _vector.begin() + 1;
+        for (; it != _vector.end() && it2 != _vector.end(); it+=2, it2+=2) {
+            if (*it > *it2) {
+                std::swap(*it, *it2);
+            }
+        }
+        std::cout << "After Pairwise: ";
+        for (std::vector<int>::iterator it = _vector.begin(); it != _vector.end(); it++) {
+            std::cout << *it << " ";
+        }
+        std::cout << std::endl;
+    }
+    //************** 2. Recursive Sort by Highest in pair **************
+    {
+        std::vector<int>::iterator it = _vector.begin() + 1;
+        std::vector<int>::iterator it2 = _vector.begin() + 3;
+        for (;it - 1 != _vector.end() && it != _vector.end(); it+=2) {
+            it2 = it + 2;
+            for (; it2 != _vector.end(); it2+=2) {
+                if (*it > *it2) {
+                    std::swap(*it, *it2);
+                    std::swap(*(it - 1), *(it2 - 1));
+                }
+            }
+        }
+        std::cout << "After Merge: ";
+        for (std::vector<int>::iterator it = _vector.begin(); it != _vector.end(); it++) {
+            std::cout << *it << " ";
+        }
+        std::cout << std::endl;
+    }
+    //************** 3. Insert Pends **************
+    {
+        int insertionCount = 0;
+        std::vector<int>::iterator it = _vector.begin();
+        std::vector<int>::iterator it2 = _vector.begin() + 2;
+        int i = 0;
+        for (; i < _size && it != _vector.end() && it2 != _vector.end(); i+=2) {
+            if (*it2 < *it && *it2 > *(it - 1)) {
+                _vector.insert(it, *it2);
+                _vector.erase(_vector.begin() + i);
+                insertionCount++;
+                it = _vector.begin() + insertionCount;
+                it2 = _vector.begin() + 2 * insertionCount + insertionCount;
+                i = insertionCount + 2;
+            }
+            else if (*it2 > *it) {
+                if (*it2 < *(it + 1)) {
+                    _vector.insert(it + 1, *it2);
+                }
+                else {
+                    _vector.insert(it + 2, *it2);
+                }
+                _vector.erase(_vector.begin() + i);
+                insertionCount++;
+                it = _vector.begin() + insertionCount;
+                it2 = _vector.begin() + 2 * insertionCount + insertionCount;
+                i = insertionCount + 2;
+            }
+            else {
+                it += 2;
+                it2 += 2;
+            }
         }
     }
-    printVector(_vector);
+    
     return time(0) - start;
 }
 
-void printVector(std::vector<int> &v)
-{
-    for (std::vector<int>::iterator it = v.begin(); it != v.end(); it++) {
-        std::cout << *it << " ";
-    }
-    std::cout << std::endl;
-};
+
+
+

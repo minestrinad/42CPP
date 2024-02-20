@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   PmergeMe.hpp                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: everonel <everonel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: everonel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 23:22:57 by everonel          #+#    #+#             */
-/*   Updated: 2024/02/19 20:24:53 by everonel         ###   ########.fr       */
+/*   Updated: 2024/02/20 00:07:31 by everonel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,15 @@
 #ifndef PMERGEME_HPP
 # define PMERGEME_HPP
 
-#include <iostream>
-#include <string>
-#include <list>
-#include <vector>
-#include <exception>
-#include <time.h>
-#include <algorithm>
+# include <iostream>
+# include <string>
+# include <list>
+# include <vector>
+# include <exception>
+# include <time.h>
+# include <algorithm>
+
+# include <limits>
 
 
 class PmergeMe
@@ -35,6 +37,7 @@ class PmergeMe
         template<class T> T    _fillContainer(char **);
         time_t  _sortList();
         time_t  _sortVector();
+        template<class T>void   _pairwiseSort( T& );
     public:
         PmergeMe( );
         PmergeMe( const PmergeMe &src );
@@ -52,6 +55,6 @@ class PmergeMe
         void PmergeVector( char **, int );
 };
 
-void    printVector(std::vector<int> &v);
+// template<class T>void    printContainer(const T& );
 
 #endif
