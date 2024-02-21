@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   PmergeMe.cpp                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: everonel <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: everonel <everonel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/10 20:35:08 by everonel          #+#    #+#             */
-/*   Updated: 2024/02/20 01:33:42 by everonel         ###   ########.fr       */
+/*   Updated: 2024/02/21 23:51:21 by everonel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,35 +118,36 @@ time_t PmergeMe::_sortVector() {
     }
     //************** 3. Insert Pends **************
     {
-        int insertionCount = 0;
+        std::vector<int> main_chain;
+        std::vector<int> pend_chain;
         std::vector<int>::iterator it = _vector.begin();
-        std::vector<int>::iterator it2 = _vector.begin() + 2;
-        int i = 0;
-        for (; i < _size && it != _vector.end() && it2 != _vector.end(); i+=2) {
-            if (*it2 < *it && *it2 > *(it - 1)) {
-                _vector.insert(it, *it2);
-                _vector.erase(_vector.begin() + i);
-                insertionCount++;
-                it = _vector.begin() + insertionCount;
-                it2 = _vector.begin() + 2 * insertionCount + insertionCount;
-                i = insertionCount + 2;
-            }
-            else if (*it2 > *it) {
-                if (*it2 < *(it + 1)) {
-                    _vector.insert(it + 1, *it2);
-                }
-                else {
-                    _vector.insert(it + 2, *it2);
-                }
-                _vector.erase(_vector.begin() + i);
-                insertionCount++;
-                it = _vector.begin() + insertionCount;
-                it2 = _vector.begin() + 2 * insertionCount + insertionCount;
-                i = insertionCount + 2;
+        main_chain.push_back(*it);
+        it++;
+        main_chain.push_back(*it);
+        it++;
+        for (int i = 2;it != _vector.end(); it++, i++) {
+            if (i % 2 == 0) {
+                pend_chain.push_back(*it);
             }
             else {
-                it += 2;
-                it2 += 2;
+                main_chain.push_back(*it);
+            }
+        }
+        std::cout << "Main Chain: ";
+        for (std::vector<int>::iterator it = main_chain.begin(); it != main_chain.end(); it++) {
+            std::cout << *it << " ";
+        }
+        std::cout << std::endl;
+        std::cout << "Pend Chain: ";
+        for (std::vector<int>::iterator it = pend_chain.begin(); it != pend_chain.end(); it++) {
+            std::cout << *it << " ";
+        }
+        std::cout << std::endl;
+
+        for (std::vector<int>::iterator it = pend_chain.begin(); it != pend_chain.end(); it++) {
+            std::vector<int>::iterator it2 = pend_chain.begin() + _nextJacobstherNumberDiff( );
+            for(;it2 != it; it2--) {
+                _binaryInsert(main_chain, *it2);
             }
         }
     }
