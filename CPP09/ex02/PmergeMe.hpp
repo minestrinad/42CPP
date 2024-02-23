@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   PmergeMe.hpp                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: everonel <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: everonel <everonel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 23:22:57 by everonel          #+#    #+#             */
-/*   Updated: 2024/02/22 14:23:00 by everonel         ###   ########.fr       */
+/*   Updated: 2024/02/23 13:46:19 by everonel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,8 +37,10 @@ class PmergeMe
         template<class T> T    _fillContainer(char **);
         time_t  _sortList();
         time_t  _sortVector();
-        void    _predecessorRecursion( int );
-        void    _binaryRecursion( int );
+        void    _predecessorRecursion( int* );
+        void    _binaryRecursion( int* );
+        void    _swapChain( std::vector<int>::iterator, std::vector<int>::iterator, int);
+        void    _moveChain( std::vector<int>::iterator, std::vector<int>::iterator, int);
     public:
         PmergeMe( );
         PmergeMe( const PmergeMe &src );
@@ -56,6 +58,5 @@ class PmergeMe
         void PmergeVector( char **, int );
 };
 
-// template<class T>void    printContainer(const T& );
 
 #endif
