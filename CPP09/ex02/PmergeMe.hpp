@@ -6,7 +6,7 @@
 /*   By: everonel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 23:22:57 by everonel          #+#    #+#             */
-/*   Updated: 2024/02/20 00:07:31 by everonel         ###   ########.fr       */
+/*   Updated: 2024/02/22 14:23:00 by everonel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,8 @@ class PmergeMe
         template<class T> T    _fillContainer(char **);
         time_t  _sortList();
         time_t  _sortVector();
-        template<class T>void   _pairwiseSort( T& );
+        void    _predecessorRecursion( int );
+        void    _binaryRecursion( int );
     public:
         PmergeMe( );
         PmergeMe( const PmergeMe &src );

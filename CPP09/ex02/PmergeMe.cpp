@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   PmergeMe.cpp                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: everonel <everonel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: everonel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/10 20:35:08 by everonel          #+#    #+#             */
-/*   Updated: 2024/02/21 23:51:21 by everonel         ###   ########.fr       */
+/*   Updated: 2024/02/22 14:31:06 by everonel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,17 +78,17 @@ time_t PmergeMe::_sortList() {
     return time(0) - start;
 }
 
+void    PmergeMe::_predecessorRecursion( int depth ) {
+    if (depth > _size / 2) {
+        return;
+    }
 
-time_t PmergeMe::_sortVector() {
-    time_t start = time(0);
-    
-    //************** 1. Sort Pairwise **************
     {
         std::vector<int>::iterator it = _vector.begin();
         std::vector<int>::iterator it2 = _vector.begin() + 1;
-        for (; it != _vector.end() && it2 != _vector.end(); it+=2, it2+=2) {
+        for (; it != _vector.end() && it2 != _vector.end(); it+=depth, it2+=depth) {
             if (*it > *it2) {
-                std::swap(*it, *it2);
+                _swapChain(it, it2, depth);
             }
         }
         std::cout << "After Pairwise: ";
@@ -97,60 +97,57 @@ time_t PmergeMe::_sortVector() {
         }
         std::cout << std::endl;
     }
-    //************** 2. Recursive Sort by Highest in pair **************
-    {
-        std::vector<int>::iterator it = _vector.begin() + 1;
-        std::vector<int>::iterator it2 = _vector.begin() + 3;
-        for (;it - 1 != _vector.end() && it != _vector.end(); it+=2) {
-            it2 = it + 2;
-            for (; it2 != _vector.end(); it2+=2) {
-                if (*it > *it2) {
-                    std::swap(*it, *it2);
-                    std::swap(*(it - 1), *(it2 - 1));
-                }
-            }
-        }
-        std::cout << "After Merge: ";
-        for (std::vector<int>::iterator it = _vector.begin(); it != _vector.end(); it++) {
-            std::cout << *it << " ";
-        }
-        std::cout << std::endl;
-    }
+
+    _predecessorRecursion( depth * 2 );
     //************** 3. Insert Pends **************
     {
-        std::vector<int> main_chain;
-        std::vector<int> pend_chain;
-        std::vector<int>::iterator it = _vector.begin();
-        main_chain.push_back(*it);
-        it++;
-        main_chain.push_back(*it);
-        it++;
-        for (int i = 2;it != _vector.end(); it++, i++) {
-            if (i % 2 == 0) {
-                pend_chain.push_back(*it);
-            }
-            else {
-                main_chain.push_back(*it);
-            }
-        }
-        std::cout << "Main Chain: ";
-        for (std::vector<int>::iterator it = main_chain.begin(); it != main_chain.end(); it++) {
-            std::cout << *it << " ";
-        }
-        std::cout << std::endl;
-        std::cout << "Pend Chain: ";
-        for (std::vector<int>::iterator it = pend_chain.begin(); it != pend_chain.end(); it++) {
-            std::cout << *it << " ";
-        }
-        std::cout << std::endl;
-
-        for (std::vector<int>::iterator it = pend_chain.begin(); it != pend_chain.end(); it++) {
-            std::vector<int>::iterator it2 = pend_chain.begin() + _nextJacobstherNumberDiff( );
+        for (std::vector<int>::iterator it = _vector.begin(); it != _vector.end(); it++) {
+            std::vector<int>::iterator it2 = _vector.begin() + _nextJacobstherNumberDiff( );
             for(;it2 != it; it2--) {
                 _binaryInsert(main_chain, *it2);
             }
         }
     }
+}
+
+
+void    PmergeMe::_binaryRecursion( int depth ) {
+    if (depth >= _size ) {
+        return;
+    }
+
+    {
+        std::vector<int>::iterator it = _vector.begin();
+        std::vector<int>::iterator it2 = _vector.begin() + 1;
+        for (; it != _vector.end() && it2 != _vector.end(); it+=depth, it2+=depth) {
+            if (*it > *it2) {
+                _swapChain(it, it2, depth);
+            }
+        }
+        std::cout << "After Pairwise: ";
+        for (std::vector<int>::iterator it = _vector.begin(); it != _vector.end(); it++) {
+            std::cout << *it << " ";
+        }
+        std::cout << std::endl;
+    }
+
+    _binaryRecursion( depth * 2 );
+    //************** 3. Insert Pends **************
+    {
+        for (std::vector<int>::iterator it = _vector.begin(); it != _vector.end(); it++) {
+            std::vector<int>::iterator it2 = _vector.begin() + _nextJacobstherNumberDiff( );
+            for(;it2 != it; it2--) {
+                _binaryInsert(main_chain, *it2);
+            }
+        }
+    }
+}
+
+time_t PmergeMe::_sortVector() {
+    time_t start = time(0);
+    
+    _predecessorRecursion( 2 );
+    _binaryRecursion( 2 );
     
     return time(0) - start;
 }
