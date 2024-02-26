@@ -17,15 +17,15 @@ done &
 
 cd ../ex01
 
-test(  ) {
-    local expression=$1
-    local expected=$2
+test() {
+    echo "______________________________"
+    local expression="$1"
+    local expected="$2"
     ./RPN "$expression" > output.txt
     echo "______________________________"
-    echo "Expression: $expression"
-    local output=$(cat output.txt)
-    if [ $output -eq $expected ]
-    then #write test passed in green
+    echo "expression: $expression"
+    output=$(cat output.txt)
+    if [ "$output" -eq "$expected" ]; then
         echo "\033[0;32m✅Test passed\033[0m"
     else
         echo "\033[0;31m⛔Test failed\033[0m"
