@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   PmergeMe.cpp                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: everonel <everonel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: everonel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/10 20:35:08 by everonel          #+#    #+#             */
-/*   Updated: 2024/02/26 19:18:40 by everonel         ###   ########.fr       */
+/*   Updated: 2024/02/27 14:11:48 by everonel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,8 +115,14 @@ void    PmergeMe::_predecessorRecursion( int depth ) {
 }
 
 void    PmergeMe::_moveChain( std::vector<int>::iterator it, std::vector<int>::iterator it2, int depth ) {
-    (void)depth;
     std::cout << "Moving: " << *it2 << " to " << *it << std::endl;
+    for (int i = 0; i < depth; i++, it--, it2--) {
+        _vector.insert(it, *it2);
+    }
+    std::cout << "After Move: ";
+    for (std::vector<int>::iterator it = _vector.begin(); it != _vector.end(); it++) {
+        std::cout << *it << " ";
+    }
 }
 
 
@@ -126,23 +132,16 @@ void    PmergeMe::_binaryRecursion( int depth ) {
         return;
     }
     // if (depth == 1) {
-    //     std::cout << "Binary 1" << depth << std::endl;
-    //     // std::vector<int>::iterator it = _vector.begin();
-    //     // std::vector<int>::iterator it2 = _vector.begin() + *depth;
-    //     // for (; it != _vector.end() && it2 != _vector.end(); it+=*depth * 2, it2+=*depth * 2) {
-    //     //     if (*it > *it2) {
-    //     //         _swapChain(it, it2, *depth);
-    //     //     }
-    //     // }
+    //     
     // }
     // else {
         std::vector<int>::iterator it = _vector.begin() + (depth - 1);
-        for (int i = 0; i < _size / _depth; it+=depth, i++) {
+        for (int i = 0; i < _size / _depth; it+=(depth), i++) {
             std::vector<int>::iterator it2 = it;
-            for (int j = 0; j < _size / _depth;  it2+=depth, j++) {
+            for (int j = 0; j < _size / _depth;  it2+=(depth), j++) {
                 std::cout << "Binary 2: it: " << *it << std::endl;
                 std::cout << "Binary 2: it2: " << *it2 << std::endl;
-                if (*it2 < *it) {
+                if (*it2 < *it && it2 + depth <= _vector.end()) {
                     _moveChain(it - depth, it2, depth);
                 }
             }
