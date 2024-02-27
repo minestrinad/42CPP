@@ -1,4 +1,4 @@
-# FORD-JOHNSON MERGE-SEORT ALGORITHM
+# FORD-JOHNSON MERGE-SORT ALGORITHM
 
 Merge-insertion sort performs the following steps, on an input `X` of `n` elements:[6]
 
