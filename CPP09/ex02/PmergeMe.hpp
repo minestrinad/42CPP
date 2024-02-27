@@ -6,7 +6,7 @@
 /*   By: everonel <everonel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 23:22:57 by everonel          #+#    #+#             */
-/*   Updated: 2024/02/25 19:18:44 by everonel         ###   ########.fr       */
+/*   Updated: 2024/02/27 18:33:44 by everonel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,9 +21,11 @@
 # include <exception>
 # include <time.h>
 # include <algorithm>
-
+# include <sys/time.h>
 # include <limits>
+# include <iomanip>
 
+# define TIME_RESOLUTION 100000
 
 class PmergeMe
 {
@@ -32,16 +34,17 @@ class PmergeMe
         std::list<int>      _list;
         std::vector<int>    _vector;
         time_t              _listTime;
-        time_t              _vectorTime;
+        double              _vectorTime;
         int                 _depth;
 
         template<class T> T    _fillContainer(char **);
         time_t  _sortList();
-        time_t  _sortVector();
+        double  _sortVector();
         void    _predecessorRecursion( int );
         void    _binaryRecursion( int );
         void    _swapChain( std::vector<int>::iterator, std::vector<int>::iterator, int);
         void    _moveChain( std::vector<int>::iterator, std::vector<int>::iterator, int);
+        // double  _jacobsthalRecursion( int );
     public:
         PmergeMe( );
         PmergeMe( const PmergeMe &src );
@@ -52,7 +55,7 @@ class PmergeMe
         std::list<int>       getList();
         std::vector<int>     getVector();
         time_t               getListTime();
-        time_t               getVectorTime();
+        double               getVectorTime();
 
         static void validateInput( char ** );
         void PmergeList( char **, int );

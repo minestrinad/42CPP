@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: everonel <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: everonel <everonel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 23:18:44 by everonel          #+#    #+#             */
-/*   Updated: 2024/02/19 22:43:06 by everonel         ###   ########.fr       */
+/*   Updated: 2024/02/27 17:54:04 by everonel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,7 @@ int main(int ac, char **av)
         return (1);
     }
     try {
-        // av++;
-        PmergeMe::validateInput(++av);
+       PmergeMe::validateInput(++av);
     }
     catch (std::exception &e)
     {
@@ -52,5 +51,6 @@ int main(int ac, char **av)
     printContainer<std::vector<int> >(PmergeMe.getVector());
     std::cout << std::endl;
     // std::cout << "Time to process a range of " << PmergeMe.getSize() << " elements with std::list : " << PmergeMe.getListTime() << std::endl;
-    std::cout << "Time to process a range of " << PmergeMe.getSize() << " elements with std::vector : " << PmergeMe.getVectorTime() << std::endl;
+    std::cout << "Time to process a range of " << PmergeMe.getSize();
+    std::cout  << " elements with std::vector : " <<(PmergeMe.getVectorTime() / TIME_RESOLUTION) << std::endl;
 }
