@@ -58,3 +58,7 @@ echo "Test 14"
 ./RPN "1 2 3 4 5 6 7 8 9 10 + + "
 echo "Expected: invalid expression"
 
+echo "Test 15"
+./RPN "1 0 /"
+echo "Expected: invalid expression"
+
