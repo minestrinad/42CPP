@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   PmergeMe.hpp                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: everonel <everonel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: everonel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 23:22:57 by everonel          #+#    #+#             */
-/*   Updated: 2024/02/27 18:33:44 by everonel         ###   ########.fr       */
+/*   Updated: 2024/02/29 02:30:25 by everonel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,6 @@
 # include <string>
 # include <list>
 # include <vector>
-# include <exception>
 # include <time.h>
 # include <algorithm>
 # include <sys/time.h>
@@ -29,38 +28,38 @@
 
 class PmergeMe
 {
+    typedef std::list<int>::iterator    LIterator;
+    typedef std::vector<int>::iterator  VIterator;
     private:
         int                 _size;
         std::list<int>      _list;
         std::vector<int>    _vector;
-        time_t              _listTime;
-        double              _vectorTime;
-        int                 _depth;
+        int                 _maxDepth;
+        
+        void    _PVRecursion( int );
+        void    _BVRecursion( int );
+        void    _BVRecursionJacobsthal( VIterator, int, int, int );
 
-        template<class T> T    _fillContainer(char **);
-        time_t  _sortList();
-        double  _sortVector();
-        void    _predecessorRecursion( int );
-        void    _binaryRecursion( int );
-        void    _swapChain( std::vector<int>::iterator, std::vector<int>::iterator, int);
-        void    _moveChain( std::vector<int>::iterator, std::vector<int>::iterator, int);
+        void    _PLRecursion( int );
+        void    _BLRecursion( int );
+        
+        template <class C, typename CIter>void    _swapChain( CIter, CIter, int);
+        template <class C, typename CIter>void    _moveChain( CIter, CIter, int);
         // double  _jacobsthalRecursion( int );
     public:
-        PmergeMe( );
+        PmergeMe( int, char ** );
         PmergeMe( const PmergeMe &src );
+        ~PmergeMe( );
+        
         PmergeMe &operator=( const PmergeMe &src );
-        ~PmergeMe();
 
-        int                  &getSize();
-        std::list<int>       getList();
-        std::vector<int>     getVector();
-        time_t               getListTime();
-        double               getVectorTime();
+        int                  getSize( );
+        std::list<int>       getList( );
+        std::vector<int>     getVector( );
 
-        static void validateInput( char ** );
-        void PmergeList( char **, int );
-        void PmergeVector( char **, int );
+        static void     validateInput( char ** );
+        double          PmergeList ( );
+        double          PmergeVector( );
 };
-
 
 #endif

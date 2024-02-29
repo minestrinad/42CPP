@@ -57,8 +57,8 @@
   "C_Cpp_Runner.useLinkTimeOptimization": false,
   "C_Cpp_Runner.msvcSecureNoWarnings": false,
   "files.associations": {
-    "*.md": "markdown",
     "*.embeddedhtml": "html",
+    "*.md": "markdown",
     "array": "cpp",
     "atomic": "cpp",
     "bit": "cpp",
@@ -79,7 +79,7 @@
     "list": "cpp",
     "string": "cpp",
     "unordered_map": "cpp",
-    "vector": "cpp",
+    "C": "cpp",
     "exception": "cpp",
     "algorithm": "cpp",
     "functional": "cpp",
@@ -107,6 +107,9 @@
     "optional": "cpp",
     "fstream": "cpp",
     "ranges": "cpp",
-    "sstream": "cpp"
+    "sstream": "cpp",
+    "ctime": "cpp",
+    "vector": "cpp",
+    "iomanip": "cpp"
   }
 }
