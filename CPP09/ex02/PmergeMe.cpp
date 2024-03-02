@@ -6,7 +6,7 @@
 /*   By: everonel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/10 20:35:08 by everonel          #+#    #+#             */
-/*   Updated: 2024/02/29 04:23:01 by everonel         ###   ########.fr       */
+/*   Updated: 2024/03/01 21:32:20 by everonel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,13 +33,15 @@ PmergeMe &PmergeMe::operator=( const PmergeMe &src ) {
     return *this;
 }
 
-int     PmergeMe::getSize() { return _size; }
+//---------------------> Getters
+int     PmergeMe::getSize( ) { return _size; }
 
-std::list<int> PmergeMe::getList() { return _list; }
+std::list<int> PmergeMe::getList( ) { return _list; }
 
-std::vector<int> PmergeMe::getVector() { return _vector; }
+std::vector<int> PmergeMe::getVector( ) { return _vector; }
 
 
+//---------------------> Static methods
 void PmergeMe::validateInput( char **av ) {
 
     for (int i = 0; av[i]; i++) {
@@ -54,8 +56,7 @@ void PmergeMe::validateInput( char **av ) {
     }
 }
 
-
-
+//---------------------> Public methods
 double PmergeMe::PmergeVector( ) {
     clock_t start, end;
     start = clock();
@@ -88,15 +89,9 @@ void    PmergeMe::_BVRecursion( int depth ) {
     }
 
     VIterator pend = _vector.begin() + (2 * depth) - 1;
+    std::cout << " pend: " << *pend << std::endl;
     _BVRecursionJacobsthal( pend, depth, 1, 3 );
-    // VIterator it = _vector.begin() + (depth * 3) - 1;
-    // for (int i = (depth * 3) - 1; i <= _size && it != _vector.end(); it+=depth * 2, i+=depth * 2) {
-    //     for (VIterator it2 = _vector.begin() + (depth -1); it2 != it;  it2+=depth) {
-    //         if (*it2 > *it) {
-    //             _moveChain<VIterator>(it2 - (depth -1), it, depth);
-    //         }
-    //     }
-    // }
+    
     _BVRecursion( depth / 2 );
 }
 
@@ -104,32 +99,31 @@ void    PmergeMe::_BVRecursionJacobsthal( VIterator pend, int depth, int jacobst
     if (pend == _vector.end() || jacobsthal2 > _size) {
         return;
     }
-    std::cout << "----------------------" << std::endl;
-    std::cout << "depth: " << depth << std::endl;
     //-----> get actual jacobsthalDiff
     int jacobsthalDiff = jacobsthal2 - jacobsthal;
-    std::cout << "jacobsthalDiff: " << jacobsthalDiff << std::endl;
 
     //-----> get next last iterator
     VIterator nextPend = pend + ((depth * jacobsthalDiff * 2) - depth);
-    std::cout << "nextPend: " << *nextPend << std::endl;
     if (nextPend - _vector.begin() >= _size) {
         for (; pend != _vector.end() && (pend + depth * 2) - _vector.begin() < _size; pend+=depth * 2) { }
         nextPend = pend;
     }
-    std::cout << "nextPend: " << *nextPend << std::endl;
 
+    std::cout << " depth: " << depth << std::endl;
+    std::cout << " jacobsthal: " << jacobsthal << std::endl;
+    std::cout << " jacobsthal2: " << jacobsthal2 << std::endl;
+    std::cout << "jacobsthalDiff: " << jacobsthalDiff << std::endl;
+    std::cout << " pend: " << *pend << std::endl;
+    std::cout << " nextPend: " << *nextPend << std::endl; 
     //-----> find next pend and move
     VIterator nextPendTemp = nextPend;
     for (; jacobsthalDiff != 0 && nextPendTemp != pend; nextPendTemp-=depth * 2, jacobsthalDiff--) {
-        std::cout << "jacobsthalDiff: " << jacobsthalDiff << std::endl;
         for (VIterator it = nextPendTemp; it != _vector.begin();  it-=depth) {
             if (*it > *nextPendTemp) {
                 _moveChain<VIterator>(it - (depth -1), nextPendTemp, depth);
             }
         }
     }
-
     _BVRecursionJacobsthal( nextPend, depth / 2, jacobsthal2, jacobsthal2 + (jacobsthal * 2) );
 }
 
@@ -162,3 +156,20 @@ template<class C, typename CIter>void    PmergeMe::_moveChain( CIter it, CIter i
     }
 }
 
+// void    PmergeMe::_BVRecursion( int depth ) {
+//     if (depth < 1 ) {
+//         return;
+//     }
+
+//     VIterator pend = _vector.begin() + (2 * depth) - 1;
+//     _BVRecursionJacobsthal( pend, depth, 1, 3 );
+//     // VIterator it = _vector.begin() + (depth * 3) - 1;
+//     // for (int i = (depth * 3) - 1; i <= _size && it != _vector.end(); it+=depth * 2, i+=depth * 2) {
+//     //     for (VIterator it2 = _vector.begin() + (depth -1); it2 != it;  it2+=depth) {
+//     //         if (*it2 > *it) {
+//     //             _moveChain<VIterator>(it2 - (depth -1), it, depth);
+//     //         }
+//     //     }
+//     // }
+//     _BVRecursion( depth / 2 );
+// }
