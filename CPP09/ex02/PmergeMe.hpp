@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   PmergeMe.hpp                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: everonel <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: everonel <everonel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 23:22:57 by everonel          #+#    #+#             */
-/*   Updated: 2024/02/29 02:30:25 by everonel         ###   ########.fr       */
+/*   Updated: 2024/03/03 11:25:39 by everonel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ class PmergeMe
         void    _BLRecursion( int );
         
         template <class C, typename CIter>void    _swapChain( CIter, CIter, int);
-        template <class C, typename CIter>void    _moveChain( CIter, CIter, int);
+        template <class C, typename CIter>void    _insertChain( CIter, CIter, int);
         // double  _jacobsthalRecursion( int );
     public:
         PmergeMe( int, char ** );

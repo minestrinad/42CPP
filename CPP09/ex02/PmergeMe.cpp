@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   PmergeMe.cpp                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: everonel <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: everonel <everonel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/10 20:35:08 by everonel          #+#    #+#             */
-/*   Updated: 2024/03/01 21:32:20 by everonel         ###   ########.fr       */
+/*   Updated: 2024/03/03 11:27:40 by everonel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,28 +103,66 @@ void    PmergeMe::_BVRecursionJacobsthal( VIterator pend, int depth, int jacobst
     int jacobsthalDiff = jacobsthal2 - jacobsthal;
 
     //-----> get next last iterator
-    VIterator nextPend = pend + ((depth * jacobsthalDiff * 2) - depth);
+    VIterator nextPend = pend + (((depth * jacobsthalDiff * 2)) - depth);
     if (nextPend - _vector.begin() >= _size) {
         for (; pend != _vector.end() && (pend + depth * 2) - _vector.begin() < _size; pend+=depth * 2) { }
         nextPend = pend;
     }
+    // VIterator nextPendTemp = nextPend;
+    
+    std::vector<int> pendVector;
 
-    std::cout << " depth: " << depth << std::endl;
-    std::cout << " jacobsthal: " << jacobsthal << std::endl;
-    std::cout << " jacobsthal2: " << jacobsthal2 << std::endl;
-    std::cout << "jacobsthalDiff: " << jacobsthalDiff << std::endl;
-    std::cout << " pend: " << *pend << std::endl;
-    std::cout << " nextPend: " << *nextPend << std::endl; 
-    //-----> find next pend and move
-    VIterator nextPendTemp = nextPend;
-    for (; jacobsthalDiff != 0 && nextPendTemp != pend; nextPendTemp-=depth * 2, jacobsthalDiff--) {
-        for (VIterator it = nextPendTemp; it != _vector.begin();  it-=depth) {
-            if (*it > *nextPendTemp) {
-                _moveChain<VIterator>(it - (depth -1), nextPendTemp, depth);
+    for (VIterator it = pend; it == nextPend; it+=depth * 2) {
+        for (int i = 0; i < depth; i++) {
+            pendVector.push_back(*(it - i));
+            _vector.erase(it - i);
+        }
+    }
+    std::cout << "pendVector: ";
+    for (int i = 0; i < (int)pendVector.size(); i++) {
+        std::cout << pendVector[i] << " ";
+    }
+    std::cout << std::endl;
+    std::cout << "vector: ";
+    for (VIterator it = _vector.begin(); it != _vector.end(); it++) {
+        std::cout << *it << " ";
+    }
+    std::cout << std::endl;
+
+    for (VIterator it = pendVector.begin(); it != pendVector.end(); it+=depth) {
+        std::cout << "TEST: " << *it << " " << *pend << std::endl;
+        for (VIterator it2 = _vector.begin() + (depth -1); it2 != _vector.end(); it2+=depth) {
+            if (*it2 > *it) {
+                std::cout << "TEST2: " << *it2 << " " << *it << std::endl;
+                _insertChain<VIterator>(it2 - (depth), it, depth);
             }
         }
     }
-    _BVRecursionJacobsthal( nextPend, depth / 2, jacobsthal2, jacobsthal2 + (jacobsthal * 2) );
+    // std::cout << "--------------------------------------" << std::endl;
+    // std::cout << " depth: " << depth << std::endl;
+    // std::cout << "jacobsthalDiff: " << jacobsthalDiff << std::endl;
+    // std::cout << " pend: " << *pend << std::endl;
+    // std::cout << " nextPend: " << *nextPend << std::endl; 
+    // //-----> find next pend and move
+    // for (; jacobsthalDiff != 0 && nextPendTemp != pend; nextPendTemp-=depth * 2, jacobsthalDiff--) {
+    //     std::cout << " nextPendTemp: " << *nextPendTemp << std::endl;
+    //     for (VIterator it = _vector.begin() + (depth -1); it - nextPendTemp < 0;  it+=depth) {
+    //         std::cout << "TEST: " << *it << " " << *nextPendTemp << std::endl;
+    //         if (*it > *nextPendTemp) {
+    //             _moveChain<VIterator>(it - (depth -1), nextPendTemp, depth);
+    //             if (*it <= *pend)
+    //                 nextPendTemp+=depth;
+    //             else
+    //                 nextPendTemp-=depth;
+    //         }
+    //     }
+    // }
+    // std::cout << "vector: ";
+    // for (VIterator it = _vector.begin(); it != _vector.end(); it++) {
+    //     std::cout << *it << " ";
+    // }
+    // std::cout << std::endl;
+    // _BVRecursionJacobsthal( nextPend + depth, depth, jacobsthal2, jacobsthal2 + (jacobsthal * 2) );
 }
 
 
@@ -150,10 +188,14 @@ template<class C, typename CIter>void    PmergeMe::_swapChain( CIter it, CIter i
     }
 }
 
-template<class C, typename CIter>void    PmergeMe::_moveChain( CIter it, CIter it2, int depth ) {
-    for (int i = 0; i < depth; i++) {
-        std::rotate(it, it2, it2 + 1);
-    }
+template<class C, typename CIter>void    PmergeMe::_insertChain( CIter it, CIter it2, int depth ) {
+    // if (depth == 1) {
+    //     _vector.insert(it, *it2);
+    // } else {
+        for (int i = 0; i < depth; i++) {
+            _vector.insert(it - i, *(it2 - i));
+        }
+    // }
 }
 
 // void    PmergeMe::_BVRecursion( int depth ) {
