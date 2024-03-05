@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: everonel <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: everonel <everonel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 23:18:44 by everonel          #+#    #+#             */
-/*   Updated: 2024/02/29 00:42:31 by everonel         ###   ########.fr       */
+/*   Updated: 2024/03/05 18:11:53 by everonel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,10 +38,16 @@ int main(int ac, char **av)
     PmergeMe PmergeMe(ac - 1, av);
     printContainer<std::vector<int> >(PmergeMe.getVector());
 
+    std::vector<int> V = PmergeMe.getVector();
+    std::rotate(V.begin(), V.end() - 4, V.end() - 2);
+
     std::cout << "After:  ";
-    int VTime = PmergeMe.PmergeVector( );
-    printContainer<std::vector<int> >(PmergeMe.getVector());
+    printContainer<std::vector<int> >(V);
+
+    // std::cout << "After:  ";
+    // // int VTime = PmergeMe.PmergeVector( );
+    // printContainer<std::vector<int> >(PmergeMe.getVector());
     
-    std::cout << "Time to process a range of " << PmergeMe.getSize() << " elements with std::vector : " << VTime / TIME_RESOLUTION << std::endl;
+    // std::cout << "Time to process a range of " << PmergeMe.getSize() << " elements with std::vector : " << VTime / TIME_RESOLUTION << std::endl;
     // std::cout << "Time to process a range of " << LTime << " elements with std::list : " << PmergeMe.getListTime() << std::endl;
 }

@@ -6,7 +6,7 @@
 /*   By: everonel <everonel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 23:22:57 by everonel          #+#    #+#             */
-/*   Updated: 2024/03/03 11:25:39 by everonel         ###   ########.fr       */
+/*   Updated: 2024/03/05 14:53:41 by everonel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,10 @@
 
 class PmergeMe
 {
-    typedef std::list<int>::iterator    LIterator;
-    typedef std::vector<int>::iterator  VIterator;
+    typedef std::list<int>::iterator            LIterator;
+    typedef std::vector<int>::iterator          VIterator;
+    typedef std::vector<VIterator>::iterator    VVIterator;
+    
     private:
         int                 _size;
         std::list<int>      _list;
@@ -38,13 +40,13 @@ class PmergeMe
         
         void    _PVRecursion( int );
         void    _BVRecursion( int );
-        void    _BVRecursionJacobsthal( VIterator, int, int, int );
+        void    _BVRecursionJacobsthal( std::vector<VIterator>, VVIterator, int, int, int );
 
         void    _PLRecursion( int );
         void    _BLRecursion( int );
         
         template <class C, typename CIter>void    _swapChain( CIter, CIter, int);
-        template <class C, typename CIter>void    _insertChain( CIter, CIter, int);
+        template <class C, typename CIter>void    _moveChain( CIter, CIter, int);
         // double  _jacobsthalRecursion( int );
     public:
         PmergeMe( int, char ** );
