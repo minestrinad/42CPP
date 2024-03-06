@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   PmergeMe.hpp                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: everonel <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: everonel <everonel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 23:22:57 by everonel          #+#    #+#             */
-/*   Updated: 2024/03/05 20:03:25 by everonel         ###   ########.fr       */
+/*   Updated: 2024/03/06 13:41:53 by everonel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ class PmergeMe
         
         void    _PVRecursion( int );
         void    _BVRecursion( int );
-        void    _BVRecursionJacobsthal( std::vector<VIterator>, VVIterator, int, int, int );
+        void    _BVRecursionJacobsthal( std::vector<VIterator>, int, int, int, int );
 
         void    _PLRecursion( int );
         void    _BLRecursion( int );

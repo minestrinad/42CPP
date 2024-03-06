@@ -8,8 +8,8 @@
       "args": ["9", "2", "4" ,"1", "7", "3", "5", "6", "0", "10"],
       "stopAtEntry": false,
       "externalConsole": false,
-      "cwd": "/home/emma/Desktop/42CPP/CPP09/ex02",
-      "program": "/home/emma/Desktop/42CPP/CPP09/ex02/PmergeMe",
+      "cwd": "/nfs/homes/everonel/Desktop/42CPP/CPP09/ex02",
+      "program": "/nfs/homes/everonel/Desktop/42CPP/CPP09/ex02/PmergeMe",
       "MIMode": "gdb",
     }
   ]
