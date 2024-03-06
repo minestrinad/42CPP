@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   PmergeMe.cpp                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: everonel <everonel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: everonel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/10 20:35:08 by everonel          #+#    #+#             */
-/*   Updated: 2024/03/05 17:58:34 by everonel         ###   ########.fr       */
+/*   Updated: 2024/03/06 11:54:03 by everonel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,6 +90,8 @@ void    PmergeMe::_BVRecursion( int depth ) {
     std::vector<VIterator> pendVector;
     // std::vector<VIterator> mainChain;
 
+    std::cout << "-------------------------------------->" << std::endl;
+    std::cout << "depth: " << depth << std::endl;
     VIterator it = _vector.begin();
     for (int idx = 0; it != _vector.end() && idx < _size;) {
         if ( _size - idx >= depth ) {
@@ -116,49 +118,72 @@ void    PmergeMe::_BVRecursion( int depth ) {
     std::cout << std::endl;
     if (pendVector.size() != 0)
         _BVRecursionJacobsthal( pendVector, pendVector.begin(), depth, 1, 3 );
-    
+    std::cout << "-------------------------------------->" << std::endl;
     _BVRecursion( depth / 2 );
 }
 
 void    PmergeMe::_BVRecursionJacobsthal( std::vector<VIterator> pendChain, VVIterator pend, int depth, int jacobsthal, int jacobsthal2 ) {
-    if (pend == pendChain.end() || jacobsthal2 > _size) {
-        return;
-    }
+    if (*pend == *(pendChain.end() - 1)) { return; }
+
     //-----> get actual jacobsthalDiff
     int jacobsthalDiff = jacobsthal2 - jacobsthal;
     
+    if (jacobsthal != 1) { pend++; }
     VVIterator nextPend;
     //-----> get next last iterator
-    if (pend + (depth * jacobsthalDiff) - 1 == pendChain.end()){
+    if (pend + (depth * jacobsthalDiff) != pendChain.end()){
         nextPend = pend + (depth * jacobsthalDiff) - 1;
     } else {
         nextPend = pendChain.end() - 1;
     }
-    pend += depth;
+    int count = 0;
+    std::cout << "pend: " << **pend << " nextPend: " << **nextPend << " jacobsthalDiff: " << jacobsthalDiff << std::endl;
 
-    std::cout << " _vector: ";
-    for (VIterator it = _vector.begin(); it != _vector.end(); it++) {
-        std::cout << *it << " ";
-    }
-    std::cout << std::endl;   
-    for (VVIterator it = nextPend; it != pend + (depth - 1); it-=depth) {
+    for (VVIterator it = nextPend; count < jacobsthalDiff; count++, it -= depth) {
+        std::cout << "pend: " << **it << std::endl; 
         for (VIterator it2 = _vector.begin() + (depth -1); it2 != *nextPend; it2+=depth) {
             if (*it2 > **it) {
-                std::cout << "TEST" << std::endl;
-                VIterator start = it2 - (depth - 1);
-                VIterator end = *it;
-                VIterator middle = *it - depth;
-                std::cout << "  start: " << *start << " middle: " << *middle << " end: " << *end << std::endl;
-                std::rotate(start, middle, end);
-                std::cout << "  vector: " << std::endl;
-                for (VIterator it = _vector.begin(); it != _vector.end(); it++) {
-                    std::cout << *it << " ";
-                }
-                break;
+                _moveChain<VIterator>(it2, *it, depth);
+                break ;
             }
         }
+        std::cout << "vector: ";
+        for (VIterator it = _vector.begin(); it != _vector.end(); it++){
+            std::cout << *it << " ";
+        }
+        std::cout << std::endl;
     }
-    _BVRecursionJacobsthal( pendChain, nextPend + depth, depth, jacobsthal2, jacobsthal2 + (jacobsthal * 2) );
+    
+    // if (*nextPend != *(pendChain.end() -1)) {
+    //     std::cout << "si ricomincia" << std::endl;
+        _BVRecursionJacobsthal( pendChain, nextPend, depth, jacobsthal2, jacobsthal2 + (jacobsthal * 2) );
+    // }s
+}
+
+double PmergeMe::PmergeList( ) {
+    clock_t start, end;
+
+    start = clock();
+
+    // _PLRecursion( 1 );
+    // _BLRecursion( _maxDepth );
+    
+    end = clock();
+    return ((double) (end - start)) / CLOCKS_PER_SEC * 1e6;
+}
+
+template<class C, typename CIter>void    PmergeMe::_swapChain( CIter it, CIter it2, int depth ) {
+    if (depth == 1) {
+        std::iter_swap(it, it2);
+    } else {
+        for (int i = 0; i < depth; i++) {
+            std::iter_swap(it - i, it2 - i);
+        }
+    }
+}
+
+template<class C, typename CIter>void    PmergeMe::_moveChain( CIter posIt, CIter pendIt, int depth ) { 
+    std::rotate(posIt - (depth - 1), (pendIt + 1) - depth, pendIt + 1);
 }
 
  // std::cout << "--------------------------------------" << std::endl;
@@ -185,34 +210,6 @@ void    PmergeMe::_BVRecursionJacobsthal( std::vector<VIterator> pendChain, VVIt
     //     std::cout << *it << " ";
     // }
     // std::cout << std::endl;
-
-
-double PmergeMe::PmergeList( ) {
-    clock_t start, end;
-
-    start = clock();
-
-    // _PLRecursion( 1 );
-    // _BLRecursion( _maxDepth );
-    
-    end = clock();
-    return ((double) (end - start)) / CLOCKS_PER_SEC * 1e6;
-}
-
-template<class C, typename CIter>void    PmergeMe::_swapChain( CIter it, CIter it2, int depth ) {
-    if (depth == 1) {
-        std::iter_swap(it, it2);
-    } else {
-        for (int i = 0; i < depth; i++) {
-            std::iter_swap(it - i, it2 - i);
-        }
-    }
-}
-
-template<class C, typename CIter>void    PmergeMe::_moveChain( CIter start, CIter end, int depth ) {
-    std::cout << "start: " << *(start - (depth - 1)) << " middle: " << *(end - depth) << " end: " << *end << std::endl;
-    std::rotate(start - (depth - 1), end - depth , end);
-}
 
 // void    PmergeMe::_BVRecursion( int depth ) {
 //     if (depth < 1 ) {

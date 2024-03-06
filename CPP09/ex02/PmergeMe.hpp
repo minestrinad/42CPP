@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   PmergeMe.hpp                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: everonel <everonel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: everonel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 23:22:57 by everonel          #+#    #+#             */
-/*   Updated: 2024/03/05 14:53:41 by everonel         ###   ########.fr       */
+/*   Updated: 2024/03/05 20:03:25 by everonel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,10 +28,24 @@
 
 class PmergeMe
 {
+    public:
     typedef std::list<int>::iterator            LIterator;
     typedef std::vector<int>::iterator          VIterator;
     typedef std::vector<VIterator>::iterator    VVIterator;
     
+        PmergeMe( int, char ** );
+        PmergeMe( const PmergeMe &src );
+        ~PmergeMe( );
+        
+        PmergeMe &operator=( const PmergeMe &src );
+
+        int                  getSize( );
+        std::list<int>       getList( );
+        std::vector<int>     getVector( );
+
+        static void     validateInput( char ** );
+        double          PmergeList ( );
+        double          PmergeVector( );
     private:
         int                 _size;
         std::list<int>      _list;
@@ -48,20 +62,6 @@ class PmergeMe
         template <class C, typename CIter>void    _swapChain( CIter, CIter, int);
         template <class C, typename CIter>void    _moveChain( CIter, CIter, int);
         // double  _jacobsthalRecursion( int );
-    public:
-        PmergeMe( int, char ** );
-        PmergeMe( const PmergeMe &src );
-        ~PmergeMe( );
-        
-        PmergeMe &operator=( const PmergeMe &src );
-
-        int                  getSize( );
-        std::list<int>       getList( );
-        std::vector<int>     getVector( );
-
-        static void     validateInput( char ** );
-        double          PmergeList ( );
-        double          PmergeVector( );
 };
 
 #endif
