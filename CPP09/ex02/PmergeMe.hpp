@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   PmergeMe.hpp                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: everonel <everonel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: everonel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 23:22:57 by everonel          #+#    #+#             */
-/*   Updated: 2024/03/06 13:41:53 by everonel         ###   ########.fr       */
+/*   Updated: 2024/03/06 23:48:39 by everonel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,10 +47,11 @@ class PmergeMe
         double          PmergeList ( );
         double          PmergeVector( );
     private:
-        int                 _size;
-        std::list<int>      _list;
-        std::vector<int>    _vector;
-        int                 _maxDepth;
+        int                     _size;
+        std::list<int>          _list;
+        std::vector<int>        _vector;
+        std::vector<VIterator>  _pendVector;
+        int                     _maxDepth;
         
         void    _PVRecursion( int );
         void    _BVRecursion( int );

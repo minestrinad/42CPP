@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   PmergeMe.cpp                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: everonel <everonel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: everonel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/10 20:35:08 by everonel          #+#    #+#             */
-/*   Updated: 2024/03/06 13:56:21 by everonel         ###   ########.fr       */
+/*   Updated: 2024/03/07 00:26:38 by everonel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,28 +84,35 @@ void    PmergeMe::_PVRecursion( int depth ) {
 }
 
 void    PmergeMe::_BVRecursion( int depth ) {
-    if (depth < 1 ) {
-        return;
-    }
+    if ( depth < 1 ) { return; }
+
+    if ( _pendVector.size() != 0 ) { _pendVector.clear(); }
     
-    std::vector<VIterator> pendVector;
-    VIterator it = _vector.begin();
-    for (int idx = 0; it != _vector.end() && idx < _size;) {
-        if ( _size - idx >= depth ) {
-            for (int i = 0; idx >= (depth * 2) && i < depth && it != _vector.end(); idx++, it++, i++) {
-                pendVector.push_back(it);
-            }
-        }
-        idx+=depth;
-        it+=depth;
-        if (idx >= _size) {
-            break;
-        }
+    //-----> populate pendVector
+    VIterator it = _vector.begin() + (depth * 3) - 1;
+    int count = 0;
+    for (int idx = (depth * 2) - 1; _size - idx > depth; idx+=depth * 2, it+=depth * 2) {
+        _pendVector.push_back(it);
+        count++;
     }
 
-    if (pendVector.size() != 0)
-        _BVRecursionJacobsthal( pendVector, 0, depth, 1, 3 );
-    
+    std::cout << "pendVector.size(): " << _pendVector.size() << std::endl;
+    std::cout << "oendVector: ";
+    for (VVIterator it = _pendVector.begin(); it != _pendVector.end(); it++) {
+        std::cout << **it << " ";
+    }
+    std::cout << std::endl;
+
+    if (_pendVector.size() != 0) {
+        //-----> populate jacobsthalChain
+        std::vector<VIterator> jacobsthalChain;
+        VVIterator end = (_pendVector.size() < 2) ? _pendVector.end() : _pendVector.begin() + 2;
+        std::copy(_pendVector.begin(), end, std::back_inserter(jacobsthalChain));
+
+        //-----> call jacobsthal recursion
+        _BVRecursionJacobsthal(jacobsthalChain, 0, depth, 1, 3 );
+    }
+    std::cout << "--------------------------------------" << std::endl;
     _BVRecursion( depth / 2 );
 }
 
@@ -113,33 +120,65 @@ void    PmergeMe::_BVRecursionJacobsthal( std::vector<VIterator> pendChain, int 
     std::cout << "BVRecursionJacobsthal----------------->" << std::endl;
 
     //-----> get actual jacobsthalDiff
-    VVIterator pend = pendChain.begin() + pendIdx;
     int jacobsthalDiff = jacobsthal2 - jacobsthal;
-    
-    pendIdx += jacobsthalDiff * depth;
-    
-    VVIterator nextPend;
-    //-----> get next last iterator
-    if (pend + (depth * jacobsthalDiff) -1!= pendChain.end()) {
-        nextPend = pend + ((depth * jacobsthalDiff) -1);
-    } else {
-        nextPend = pendChain.end() - 1;
+    std::cout << "jacobsthalDiff: " << jacobsthalDiff << std::endl;
+    std::cout << "pendIdx: " << pendIdx << std::endl;
+    std::cout << "depth: " << depth << std::endl;
+    std::cout << "pendChain: ";
+    for (VVIterator it = pendChain.begin(); it != pendChain.end(); it++) {
+        std::cout << **it << " ";
     }
+    std::cout << std::endl;
+
     int count = 0;
-    
-    for (VVIterator it = nextPend; count < jacobsthalDiff; count++, it -= depth) {
-        for (VIterator it2 = _vector.begin() + (depth -1); it2 != *nextPend; it2+=depth) {
+    for (VVIterator it = pendChain.end() -1; count < jacobsthalDiff; count++, it--) {
+        for (VIterator it2 = _vector.begin() + (depth -1); it2 != *pendChain.begin(); it2+=depth) {
             if (*it2 > **it) {
                 _moveChain<VIterator>(it2, *it, depth);
-                if (*it2 <= **pend) {
-                    for (VVIterator it3 = pend; it3 != nextPend; it3++) { *it3 += depth; }
+                if (*it2 <= **pendChain.begin()) {
+                    for (VVIterator it3 = pendChain.begin(); it3 != pendChain.end(); it3++) { *it3 += depth; }
                 }
                 break ;
             }
         }
+        if (it == pendChain.begin()) {
+            break ;
+        }
     }
-    if (pendIdx < (int)pendChain.size()) 
+    std::cout << "vector: ";
+    for (VIterator it = _vector.begin(); it != _vector.end(); it++) {
+        std::cout << *it << " ";
+    }
+    std::cout << std::endl;
+    pendIdx += jacobsthalDiff;
+    std::cout << "pendIdx: " << pendIdx << std::endl;
+    std::cout << "pendVector.size(): " << _pendVector.size() << std::endl;
+    if (pendIdx < (int)_pendVector.size()) {
+        std::cout << "TEST2" << std::endl;
+
+        int nextJacobsthalDiff = (jacobsthal2 + jacobsthal * 2) - jacobsthal2;
+        std::cout << "nextJacobsthalDiff: " << nextJacobsthalDiff << std::endl;
+        VVIterator start = _pendVector.begin() + pendIdx;
+        std::cout << "start: " << **start << std::endl;
+        std::cout << "pendIdx nextJacobsthalDiff: " << pendIdx + nextJacobsthalDiff << std::endl;
+        VVIterator end;
+        if (pendIdx + nextJacobsthalDiff < (int)_pendVector.size()) {
+            end = start + nextJacobsthalDiff;
+        } else {
+            std::cout << "TEST3" << std::endl;
+            end = _pendVector.end();
+        }
+        pendChain.clear();
+        std::cout << "pendChain.size(): " << pendChain.size() << std::endl;
+        std::copy(start, end, pendChain.begin());
+        std::cout << "pendChain: ";
+        for (VVIterator it = pendChain.begin(); it != pendChain.end(); it++) {
+            std::cout << **it << " ";
+        }
+        std::cout << std::endl;
+
         _BVRecursionJacobsthal( pendChain, pendIdx, depth, jacobsthal2, jacobsthal2 + (jacobsthal * 2) );
+    }
 }
 
 double PmergeMe::PmergeList( ) {
