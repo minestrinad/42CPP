@@ -6,7 +6,7 @@
 /*   By: everonel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 23:22:57 by everonel          #+#    #+#             */
-/*   Updated: 2024/03/06 23:48:39 by everonel         ###   ########.fr       */
+/*   Updated: 2024/03/17 01:00:26 by everonel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,9 @@ class PmergeMe
     public:
     typedef std::list<int>::iterator            LIterator;
     typedef std::vector<int>::iterator          VIterator;
+    
     typedef std::vector<VIterator>::iterator    VVIterator;
+    typedef std::list<LIterator>::iterator      LLIterator;
     
         PmergeMe( int, char ** );
         PmergeMe( const PmergeMe &src );
@@ -48,10 +50,13 @@ class PmergeMe
         double          PmergeVector( );
     private:
         int                     _size;
+        int                     _maxDepth;
+        
         std::list<int>          _list;
+        std::list<LIterator>    _pendList;
+
         std::vector<int>        _vector;
         std::vector<VIterator>  _pendVector;
-        int                     _maxDepth;
         
         void    _PVRecursion( int );
         void    _BVRecursion( int );
@@ -59,9 +64,10 @@ class PmergeMe
 
         void    _PLRecursion( int );
         void    _BLRecursion( int );
+        void    _BLRecursionJacobsthal( std::list<LIterator>, int, int, int, int );
         
-        template <class C, typename CIter>void    _swapChain( CIter, CIter, int);
-        template <class C, typename CIter>void    _moveChain( CIter, CIter, int);
+        template <typename CIter>void    _swapChain( CIter, CIter, int);
+        template <typename CIter>void    _moveChain( CIter, CIter, int);
         // double  _jacobsthalRecursion( int );
 };
 
