@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   PmergeMe.cpp                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: everonel <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: everonel <everonel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/10 20:35:08 by everonel          #+#    #+#             */
-/*   Updated: 2024/03/18 21:25:26 by everonel         ###   ########.fr       */
+/*   Updated: 2024/03/19 17:25:48 by everonel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -193,15 +193,15 @@ void    PmergeMe::_BLRecursion( int depth ) {
         std::advance(it, idx);
         _pendList.push_back(it);
     }
-    std::cout << "--------------------------------------" << std::endl;
+    // std::cout << "--------------------------------------" << std::endl;
     std::cout << "depth: " << depth << std::endl;
     std::cout << "list: ";
-    for (LIterator it = _list.begin(); it != _list.end(); it++) {
+    for (LIterator it = _list.begin(); it != _list.end(); std::advance(it, 1)) {
         std::cout << *it << " ";
     }
     std::cout << std::endl;
     std::cout << "pendList: ";
-    for (LLIterator it = _pendList.begin(); it != _pendList.end(); it++) {
+    for (LLIterator it = _pendList.begin(); it != _pendList.end(); std::advance(it, 1)) {
         std::cout << **it << " ";
     }
     std::cout << std::endl;
@@ -228,9 +228,20 @@ void    PmergeMe::_BLRecursionJacobsthal( std::list<LIterator> pendChain, int pe
 
     int jacobsthalDiff = jacobsthal2 - jacobsthal;
     int count = 0;
-    
-    for (LLIterator it = pendChain.end(); count < jacobsthalDiff; count++) {
-        --it;
+    LLIterator it = pendChain.end();
+    std::cout << "pendChain: ";
+    for (LLIterator it = pendChain.begin(); it != pendChain.end(); std::advance(it, 1)) {
+        std::cout << **it << " ";
+    }
+    std::cout << std::endl;
+    for (;count < jacobsthalDiff; count++) {
+        it--;
+            std::cout << "it: " << **it << std::endl;
+        // for (LLIterator it2 = pendChain.begin(); ; std::advance(it2, 1)) { 
+        //     std::cout << "it2: " << **it2 << std::endl; 
+        //     if (**it2 == **it) { break; } 
+        //     it = it2; 
+        // } 
         std::cout << "count: " << count << std::endl;
         std::cout << "it: " << **it << std::endl;
         LIterator it2 = _list.begin();
