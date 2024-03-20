@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: everonel <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: everonel <everonel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 23:18:44 by everonel          #+#    #+#             */
-/*   Updated: 2024/03/18 21:23:18 by everonel         ###   ########.fr       */
+/*   Updated: 2024/03/20 15:18:18 by everonel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ template<class T>void printContainer(const T &c)
 
 int main(int ac, char **av)
 {
+    std::cout << "Welcome to PmergeMe" << std::endl;
     try {
         if (ac < 3) {
             std::cerr << "Error: wrong number of arguments" << std::endl;
@@ -34,40 +35,15 @@ int main(int ac, char **av)
         return (1);
     }
 
-    // std::cout << "Before: ";
+    std::cout << "Before: ";
     PmergeMe PmergeMe(ac - 1, av);
-    // printContainer<std::vector<int> >(PmergeMe.getVector());
-    // std::vector<int> v = PmergeMe.getVector();
-
-    // std::cout << "After:  ";
-    // std::vector<PmergeMe::VIterator> vIters;
-
-    // vIters.push_back(v.begin() + 2);
-    // vIters.push_back(v.begin() + 3);
-    // PmergeMe::VIterator end;
-    // for (end = v.begin(); end != *(vIters.end() - 1); end++) { }
-    // end++;
-    // std::cout << "end: " << *end << std::endl;
-    // PmergeMe::VIterator middle = end - 2;
-
-    // std::rotate(v.begin(), middle, end);
-
-    // printContainer<std::vector<int> >(v);
-    // std::cout << "After:  ";
-    int VTime = PmergeMe.PmergeVector( );
-    int LTime = PmergeMe.PmergeList( );
-    std::list< int > l = PmergeMe.getList();
-    // for (LIterator it = l.end(); it != l.begin(); --it) {
-    //     std::cout << **it << " ";
-    // }
-    std::cout << "\n list: ";
     printContainer<std::list<int> >(PmergeMe.getList());
-    // std::cout << "vector: ";
-    // printContainer<std::vector<int> >(PmergeMe.getVector());
     
-    (void)VTime;
-    (void)LTime;
+    std::cout << "After:  ";
+    double VTime = PmergeMe.PmergeVector( );
+    double LTime = PmergeMe.PmergeList( );
+    printContainer<std::list<int> >(PmergeMe.getList());
     
-    // std::cout << "Time to process a range of " << PmergeMe.getSize() << " elements with std::vector : " << VTime / TIME_RESOLUTION << std::endl;
-    // std::cout << "Time to process a range of " << LTime << " elements with std::list : " << PmergeMe.getListTime() << std::endl;
+    std::cout << "Time to process a range of " << PmergeMe.getSize() << " elements with std::vector : " << std::fixed << VTime << " us" << std::endl;
+    std::cout << "Time to process a range of " << PmergeMe.getSize() << " elements with std::list : " << std::fixed << LTime << " us" << std::endl;
 }
