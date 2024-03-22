@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: everonel <everonel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: everonel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 23:18:44 by everonel          #+#    #+#             */
-/*   Updated: 2024/03/20 15:18:18 by everonel         ###   ########.fr       */
+/*   Updated: 2024/03/21 16:19:23 by everonel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,10 +22,9 @@ template<class T>void printContainer(const T &c)
 
 int main(int ac, char **av)
 {
-    std::cout << "Welcome to PmergeMe" << std::endl;
     try {
-        if (ac < 3) {
-            std::cerr << "Error: wrong number of arguments" << std::endl;
+        if (ac < 2) {
+            std::cerr << "Usage: ./Pmergeme <seq>" << std::endl;
         }
         PmergeMe::validateInput(++av);
     }
@@ -36,12 +35,15 @@ int main(int ac, char **av)
     }
 
     std::cout << "Before: ";
-    PmergeMe PmergeMe(ac - 1, av);
-    printContainer<std::list<int> >(PmergeMe.getList());
+    PmergeMe PmergeMe(ac - 1);
+    for (int i = 0; i < ac - 1; i++) {
+        std::cout << av[i] << " ";
+    }
+    std::cout << std::endl;
     
     std::cout << "After:  ";
-    double VTime = PmergeMe.PmergeVector( );
-    double LTime = PmergeMe.PmergeList( );
+    double VTime = PmergeMe.PmergeVector( av );
+    double LTime = PmergeMe.PmergeList( av );
     printContainer<std::list<int> >(PmergeMe.getList());
     
     std::cout << "Time to process a range of " << PmergeMe.getSize() << " elements with std::vector : " << std::fixed << VTime << " us" << std::endl;

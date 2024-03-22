@@ -3,23 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   PmergeMe.cpp                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: everonel <everonel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: everonel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/10 20:35:08 by everonel          #+#    #+#             */
-/*   Updated: 2024/03/20 15:18:34 by everonel         ###   ########.fr       */
+/*   Updated: 2024/03/21 16:28:27 by everonel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "PmergeMe.hpp"
 
-PmergeMe::PmergeMe( int size, char **av ) : _size(size), _maxDepth(0) { 
-    for (int i = 0; i < _size; i++) {
-        _vector.push_back(std::atoi(av[i]));
-    }
-    for (int i = 0; i < _size; i++) {
-        _list.push_back(std::atoi(av[i]));
-    }
-}
+PmergeMe::PmergeMe( int size ) : _size(size), _maxDepth(0) { }
 
 PmergeMe::PmergeMe( const PmergeMe &src ) { *this = src; }
 
@@ -47,6 +40,11 @@ std::vector<int> PmergeMe::getVector( ) { return _vector; }
 void PmergeMe::validateInput( char **av ) {
 
     for (int i = 0; av[i]; i++) {
+        for (int j = 0; av[i][j]; j++) {
+            if (!std::isdigit(av[i][j])) {
+                throw std::invalid_argument("Only numbers are allowed");
+            }
+        }
         if (std::atoi(av[i]) < 0) {
             throw std::invalid_argument("Negative numbers are not allowed");
         }
@@ -58,11 +56,18 @@ void PmergeMe::validateInput( char **av ) {
     }
 }
 
+/*__________________________________________*/
+/*__________________VECTOR__________________*/
 //---------------------> Public methods
-double PmergeMe::PmergeVector( ) {
+
+double PmergeMe::PmergeVector( char **input ) {
     clock_t start, end;
     start = clock();
-
+    
+    for (int i = 0; i < _size; i++) {
+        _vector.push_back(std::atoi(input[i]));
+    }
+    
     _PVRecursion( 1 );
     _BVRecursion( _maxDepth );
     
@@ -70,22 +75,7 @@ double PmergeMe::PmergeVector( ) {
     return static_cast<double>(end - start) / CLOCKS_PER_SEC;
 }
 
-
-// void    PmergeMe::_PVRecursion( int depth ) {
-//     if (depth > _size / 2) {
-//         _maxDepth = depth / 2;
-//         return;
-//     }
-//     VIterator it = _vector.begin() + (depth - 1);
-//     VIterator it2 = _vector.begin() + (depth * 2) - 1;
-//     for (int i = depth *2; i <= _size; it+=depth * 2, it2+=depth * 2, i+=depth * 2) {
-//         if (*it > *it2) {
-//             _swapChain<VIterator>(it, it2, depth);
-//         }
-//     }
-//     _PVRecursion( depth * 2 );
-// }
-
+//---------------------> Private methods
 
 void    PmergeMe::_PVRecursion( int depth ) {
     if (depth > _size / 2) {
@@ -98,7 +88,7 @@ void    PmergeMe::_PVRecursion( int depth ) {
 
     for (int i = depth *2; i <= _size; it+=depth * 2, it2+=depth * 2, i+=depth * 2) {
         if (*it > *it2) {
-            _swapChain<VIterator>(it, it2, depth);
+            _VSwapChain(it, it2, depth);
         }
     }
     
@@ -132,7 +122,7 @@ void    PmergeMe::_BVRecursionJacobsthal( std::vector<VIterator> pendChain, int 
     for (VVIterator it = pendChain.end() -1; count < jacobsthalDiff; count++, it--) {
         for (VIterator it2 = _vector.begin() + (depth -1); it2 != *it; it2+=depth) {
             if (*it2 > **it) {
-                _moveChain<VIterator>(it2, *it, depth);
+                _VMoveChain(it2, *it, depth);
                 for (VVIterator it3 = pendChain.begin(); it3 != it; it3++) { if (**it3 > *it2) { *it3 += depth; } }
                 break ;
             }
@@ -146,18 +136,36 @@ void    PmergeMe::_BVRecursionJacobsthal( std::vector<VIterator> pendChain, int 
         int nextJacobsthalDiff = (jacobsthal2 + jacobsthal * 2) - jacobsthal2;
         for (int i = 0; i < nextJacobsthalDiff && pendIdx + i < (int)_pendVector.size(); i++) {
             pendChain.push_back(_pendVector[pendIdx + i]);
-
         }
 
         _BVRecursionJacobsthal( pendChain, pendIdx, depth, jacobsthal2, jacobsthal2 + (jacobsthal * 2) );
     }
 }
 
-double PmergeMe::PmergeList( ) {
+void    PmergeMe::_VSwapChain( VIterator it, VIterator it2, int depth ) {
+    for (int i = 0; i < depth; i++) {
+        std::iter_swap(it - i, it2 - i);
+    }
+}
+
+void    PmergeMe::_VMoveChain( VIterator posIt, VIterator pendIt, int depth ) { 
+    std::rotate(posIt - (depth - 1), (pendIt + 1) - depth, pendIt + 1);
+}
+
+
+/*__________________________________________*/
+/*___________________LIST___________________*/
+//---------------------> Public methods
+
+double PmergeMe::PmergeList( char **input ) {
     clock_t start, end;
 
     start = clock();
 
+    for (int i = 0; i < _size; i++) {
+        _list.push_back(std::atoi(input[i]));
+    }
+    
     _PLRecursion( 1 );
     _BLRecursion( _maxDepth );
     
@@ -165,6 +173,7 @@ double PmergeMe::PmergeList( ) {
     return static_cast<double>(end - start) / CLOCKS_PER_SEC;
 }
 
+//---------------------> Private methods
 
 void    PmergeMe::_PLRecursion( int depth ) {
     if (depth > _size / 2) {
@@ -177,7 +186,7 @@ void    PmergeMe::_PLRecursion( int depth ) {
     std::advance(it2, depth * 2 - 1);
     for (int i = depth * 2; i <= _size; std::advance(it, depth * 2), std::advance(it2, depth * 2), i+=depth * 2) {
         if (*it > *it2) {
-            _swapChain<LIterator>(it, it2, depth);
+            _LSwapChain(it, it2, depth);
         }
     }
     _PLRecursion( depth * 2 );
@@ -195,7 +204,6 @@ void    PmergeMe::_BLRecursion( int depth ) {
     }
 
     if (_pendList.size() != 0) {
-        //-----> populate jacobsthalChain
         std::list<LIterator> jacobsthalChain;
 
         LLIterator end;
@@ -207,7 +215,6 @@ void    PmergeMe::_BLRecursion( int depth ) {
         }
         std::copy(_pendList.begin(), end, std::back_inserter(jacobsthalChain));
 
-        //-----> call jacobsthal recursion
         _BLRecursionJacobsthal(jacobsthalChain, 0, depth, 1, 3 );
     }
     _BLRecursion( depth / 2 );
@@ -224,7 +231,7 @@ void    PmergeMe::_BLRecursionJacobsthal( std::list<LIterator> pendChain, int pe
 
         for (std::advance(it2, depth - 1); *it2 != **it; std::advance(it2, depth)) {
             if (*it2 > **it) {
-                _moveChain<LIterator>(it2, *it, depth);
+                _LMoveChain(it2, *it, depth);
                 for (LLIterator it3 = pendChain.begin(); it3 != it; std::advance(it3, 1)) { if (**it3 > *it2) { std::advance(*it3, depth); } }
                 break ;
             }
@@ -247,54 +254,26 @@ void    PmergeMe::_BLRecursionJacobsthal( std::list<LIterator> pendChain, int pe
     }
 }
 
-template<typename CIter>void    PmergeMe::_swapChain( CIter it, CIter it2, int depth ) {
-    // for (int i = 0; i < depth; i++) {
-    //     std::iter_swap(it - i, it2 - i);
-    // }
+void    PmergeMe::_LSwapChain( LIterator it, LIterator it2, int depth ) {
     for (int i = 0; i < depth; i++) {
-        CIter it3 = it;
-        CIter it4 = it2;
+        LIterator it3 = it;
+        LIterator it4 = it2;
         std::advance(it3, (i * -1));
         std::advance(it4, (i * -1));
         std::iter_swap(it3, it4);
     }
 }
 
-template<typename CIter>void    PmergeMe::_moveChain( CIter posIt, CIter pendIt, int depth ) { 
+void    PmergeMe::_LMoveChain( LIterator posIt, LIterator pendIt, int depth ) { 
     // std::rotate(posIt - (depth - 1), (pendIt + 1) - depth, pendIt + 1);
-    CIter start = posIt;
+    LIterator start = posIt;
     std::advance(start, (depth - 1) * -1);
-    CIter middle = pendIt;
+    LIterator middle = pendIt;
     std::advance(middle, (depth - 1) * -1);
-    CIter end = pendIt;
+    LIterator end = pendIt;
     std::advance(end, 1);
     std::rotate(start, middle, end);
 }
-
- // std::cout << "--------------------------------------" << std::endl;
-    // std::cout << " depth: " << depth << std::endl;
-    // std::cout << "jacobsthalDiff: " << jacobsthalDiff << std::endl;
-    // std::cout << " pend: " << *pend << std::endl;
-    // std::cout << " nextPend: " << *nextPend << std::endl; 
-    // //-----> find next pend and move
-    // for (; jacobsthalDiff != 0 && nextPendTemp != pend; nextPendTemp-=depth * 2, jacobsthalDiff--) {
-    //     std::cout << " nextPendTemp: " << *nextPendTemp << std::endl;
-    //     for (VIterator it = _vector.begin() + (depth -1); it - nextPendTemp < 0;  it+=depth) {
-    //         std::cout << "TEST: " << *it << " " << *nextPendTemp << std::endl;
-    //         if (*it > *nextPendTemp) {
-    //             _moveChain<VIterator>(it - (depth -1), nextPendTemp, depth);
-    //             if (*it <= *pend)
-    //                 nextPendTemp+=depth;
-    //             else
-    //                 nextPendTemp-=depth;
-    //         }
-    //     }
-    // }
-    // std::cout << "vector: ";
-    // for (VIterator it = _vector.begin(); it != _vector.end(); it++) {
-    //     std::cout << *it << " ";
-    // }
-    // std::cout << std::endl;
 
 // void    PmergeMe::_BVRecursion( int depth ) {
 //     if (depth < 1 ) {
